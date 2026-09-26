@@ -278,23 +278,19 @@ app.post(
                         process.env.GEMINI_API_KEY
                 });
 
-            const response =
-                await ai.models.generateContent({
-                   model: "gemini-2.5-flash",
+           const interaction =
+    await ai.interactions.create({
+        model: "gemini-3.8-flash",
 
-                    contents:
-                        question,
+        input: question,
 
-                    config: {
-                        systemInstruction:
-                            "You are ShikshaSetu-AI, an educational assistant for college students in India. Explain concepts simply and clearly. Use Hinglish when appropriate. Give helpful, accurate and student-friendly answers."
-                    }
-                });
+        system_instruction:
+            "You are ShikshaSetu-AI, an educational assistant for college students in India. Explain concepts simply and clearly. Use Hinglish when appropriate. Give helpful, accurate and student-friendly answers."
+    });
 
-            const answer =
-                response.text ||
-                "No answer generated.";
-
+const answer =
+    interaction.output_text ||
+    "No answer generated.";
             console.log(
                 "Gemini AI response received successfully"
             );
