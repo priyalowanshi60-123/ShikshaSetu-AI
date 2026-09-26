@@ -1,0 +1,648 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>ShikshaSetu-AI | Scholarships</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: #2563eb;
+        color: white;
+        padding: 18px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #languageSelect {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 7px;
+        background: white;
+        color: #1f2937;
+        cursor: pointer;
+    }
+
+    .back-btn {
+        color: white;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 10px 16px;
+        border-radius: 8px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .hero {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .official-box {
+        margin-top: 18px;
+        padding: 16px;
+        background: #eff6ff;
+        border-radius: 10px;
+    }
+
+    .official-box p {
+        margin-top: 6px;
+    }
+
+    .official-link {
+        display: inline-block;
+        margin-top: 12px;
+        text-decoration: none;
+        background: #2563eb;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .filters {
+        background: white;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+    }
+
+    .filters h2 {
+        margin-bottom: 15px;
+    }
+
+    .filter-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .filter-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: bold;
+    }
+
+    .filter-group select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: white;
+        font-size: 15px;
+    }
+
+    .scholarships {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+    }
+
+    .tag {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1d4ed8;
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .card h3 {
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        color: #6b7280;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .info {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .apply-btn {
+        display: inline-block;
+        margin-top: 10px;
+        text-decoration: none;
+        background: #2563eb;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .no-results {
+        display: none;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        color: #6b7280;
+    }
+
+    @media (max-width: 750px) {
+        .scholarships {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-row {
+            grid-template-columns: 1fr;
+        }
+
+        .hero h1 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        ShikshaSetu-AI
+    </div>
+
+    <div class="nav-right">
+
+        <select id="languageSelect">
+            <option value="en">English</option>
+            <option value="hi">à¤¹à¤¿à¤‚à¤¦à¥€</option>
+        </select>
+
+        <a
+            href="dashboard.html"
+            class="back-btn"
+        >
+            &larr; Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <section class="hero">
+
+        <h1>
+            &#x1F393;
+            <span data-i18n="scholarshipDiscovery">
+                Scholarship Discovery
+            </span>
+        </h1>
+
+        <p>
+            Government scholarship opportunities ko easily
+            explore karo aur official portal se apply karo.
+        </p>
+
+        <div class="official-box">
+
+            <strong>
+                National Scholarship Portal
+            </strong>
+
+            <p>
+                Academic Year 2026â€“27 ke scholarship schemes
+                official NSP portal par available hain.
+            </p>
+
+            <a
+                href="https://scholarships.gov.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="official-link"
+                data-i18n="openOfficialNSP"
+            >
+                Open Official NSP
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="filters">
+
+        <h2>
+            Find Scholarships
+        </h2>
+
+        <div class="filter-row">
+
+            <div class="filter-group">
+
+                <label
+                    for="levelFilter"
+                    data-i18n="educationLevelFilter"
+                >
+                    Education Level
+                </label>
+
+                <select id="levelFilter">
+
+                    <option
+                        value="all"
+                        data-i18n-option="all"
+                    >
+                        All
+                    </option>
+
+                    <option
+                        value="college"
+                        data-i18n-option="collegeUniversity"
+                    >
+                        College / University
+                    </option>
+
+                    <option
+                        value="postgraduate"
+                        data-i18n-option="postgraduate"
+                    >
+                        Postgraduate
+                    </option>
+
+                    <option
+                        value="school"
+                        data-i18n-option="schoolStudent"
+                    >
+                        School
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="filter-group">
+
+                <label
+                    for="typeFilter"
+                    data-i18n="schemeType"
+                >
+                    Scheme Type
+                </label>
+
+                <select id="typeFilter">
+
+                    <option
+                        value="all"
+                        data-i18n-option="all"
+                    >
+                        All
+                    </option>
+
+                    <option
+                        value="merit"
+                        data-i18n-option="meritBased"
+                    >
+                        Merit Based
+                    </option>
+
+                    <option
+                        value="welfare"
+                        data-i18n-option="welfareBased"
+                    >
+                        Welfare Based
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section
+        class="scholarships"
+        id="scholarshipsList"
+    >
+
+        <div
+            class="card scholarship-card"
+            data-level="college"
+            data-type="merit"
+        >
+
+            <span class="tag">
+                Merit Based
+            </span>
+
+            <h3>
+                PM-USP Central Sector Scheme of Scholarship
+            </h3>
+
+            <p>
+                College and university students ke liye
+                National Scholarship Portal par listed scheme.
+            </p>
+
+            <div class="info">
+                <strong>Level:</strong>
+                College / University
+            </div>
+
+            <div class="info">
+                <strong>Portal:</strong>
+                NSP
+            </div>
+
+            <a
+                href="https://scholarships.gov.in/All-Scholarships"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="apply-btn"
+                data-i18n="checkOfficialDetails"
+            >
+                Check Official Details
+            </a>
+
+        </div>
+
+        <div
+            class="card scholarship-card"
+            data-level="postgraduate"
+            data-type="merit"
+        >
+
+            <span class="tag">
+                Merit Based
+            </span>
+
+            <h3>
+                National Scholarship for Post Graduate Studies
+            </h3>
+
+            <p>
+                Postgraduate students ke liye NSP par
+                listed scholarship scheme.
+            </p>
+
+            <div class="info">
+                <strong>Level:</strong>
+                Postgraduate
+            </div>
+
+            <div class="info">
+                <strong>Portal:</strong>
+                NSP
+            </div>
+
+            <a
+                href="https://scholarships.gov.in/All-Scholarships"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="apply-btn"
+                data-i18n="checkOfficialDetails"
+            >
+                Check Official Details
+            </a>
+
+        </div>
+
+        <div
+            class="card scholarship-card"
+            data-level="college"
+            data-type="welfare"
+        >
+
+            <span class="tag">
+                Welfare Based
+            </span>
+
+            <h3>
+                Post Matric Scholarship for Students with Disabilities
+            </h3>
+
+            <p>
+                Eligible students ke liye welfare-based
+                scholarship scheme NSP par listed hai.
+            </p>
+
+            <div class="info">
+                <strong>Level:</strong>
+                Post Matric
+            </div>
+
+            <div class="info">
+                <strong>Portal:</strong>
+                NSP
+            </div>
+
+            <a
+                href="https://scholarships.gov.in/All-Scholarships"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="apply-btn"
+                data-i18n="checkOfficialDetails"
+            >
+                Check Official Details
+            </a>
+
+        </div>
+
+        <div
+            class="card scholarship-card"
+            data-level="college"
+            data-type="welfare"
+        >
+
+            <span class="tag">
+                Welfare Based
+            </span>
+
+            <h3>
+                PM YASASVI Top Class Education in College
+            </h3>
+
+            <p>
+                Eligible OBC, EBC aur DNT students ke liye
+                NSP par listed scheme.
+            </p>
+
+            <div class="info">
+                <strong>Level:</strong>
+                College
+            </div>
+
+            <div class="info">
+                <strong>Portal:</strong>
+                NSP
+            </div>
+
+            <a
+                href="https://scholarships.gov.in/All-Scholarships"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="apply-btn"
+                data-i18n="checkOfficialDetails"
+            >
+                Check Official Details
+            </a>
+
+        </div>
+
+    </section>
+
+    <div
+        class="no-results"
+        id="noResults"
+        data-i18n="matchingScholarshipNotFound"
+    >
+        Matching scholarship à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¥€.
+    </div>
+
+</main>
+
+<script src="js/language.js"></script>
+
+<script>
+    const levelFilter =
+        document.getElementById(
+            "levelFilter"
+        );
+
+    const typeFilter =
+        document.getElementById(
+            "typeFilter"
+        );
+
+    const cards =
+        document.querySelectorAll(
+            ".scholarship-card"
+        );
+
+    const noResults =
+        document.getElementById(
+            "noResults"
+        );
+
+    function filterScholarships() {
+
+        const selectedLevel =
+            levelFilter.value;
+
+        const selectedType =
+            typeFilter.value;
+
+        let visibleCount = 0;
+
+        cards.forEach(
+            function (card) {
+
+                const cardLevel =
+                    card.dataset.level;
+
+                const cardType =
+                    card.dataset.type;
+
+                const levelMatch =
+                    selectedLevel === "all" ||
+                    selectedLevel === cardLevel;
+
+                const typeMatch =
+                    selectedType === "all" ||
+                    selectedType === cardType;
+
+                if (
+                    levelMatch &&
+                    typeMatch
+                ) {
+
+                    card.style.display =
+                        "block";
+
+                    visibleCount++;
+
+                } else {
+
+                    card.style.display =
+                        "none";
+                }
+            }
+        );
+
+        noResults.style.display =
+            visibleCount === 0
+                ? "block"
+                : "none";
+    }
+
+    levelFilter.addEventListener(
+        "change",
+        filterScholarships
+    );
+
+    typeFilter.addEventListener(
+        "change",
+        filterScholarships
+    );
+</script>
+
+
+</body>
+</html>
+
+
+

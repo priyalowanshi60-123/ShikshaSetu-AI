@@ -1,0 +1,824 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Login | ShikshaSetu-AI</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+    .auth-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        background: linear-gradient(
+            135deg,
+            #eff6ff,
+            #f8fafc
+        );
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 450px;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid #e5eaf0;
+        box-shadow:
+            0 20px 50px
+            rgba(15, 23, 42, 0.10);
+    }
+
+    .auth-logo {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .auth-logo-icon {
+        font-size: 42px;
+    }
+
+    .auth-logo h1 {
+        margin-top: 8px;
+        color: #2563eb;
+        font-size: 25px;
+    }
+
+    .auth-logo p {
+        color: #64748b;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .auth-tabs {
+        display: flex;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .auth-tab {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        background: transparent;
+        font-size: 15px;
+        font-weight: 600;
+        color: #64748b;
+        cursor: pointer;
+    }
+
+    .auth-tab.active {
+        color: #2563eb;
+        border-bottom: 2px solid #2563eb;
+    }
+
+    .auth-form {
+        display: none;
+    }
+
+    .auth-form.active {
+        display: block;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        color: #334155;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #d7dee8;
+        border-radius: 8px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        border-color: #2563eb;
+        box-shadow:
+            0 0 0 3px #dbeafe;
+    }
+
+    .auth-submit {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        border-radius: 9px;
+        background: #2563eb;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .auth-submit:hover {
+        background: #1d4ed8;
+    }
+
+    .auth-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .auth-message {
+        margin-top: 18px;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        display: none;
+        line-height: 1.5;
+    }
+
+    .auth-message.success {
+        display: block;
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .auth-message.error {
+        display: block;
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .back-home {
+        display: block;
+        text-align: center;
+        margin-top: 22px;
+        color: #64748b;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+    .back-home:hover {
+        color: #2563eb;
+    }
+
+    @media (max-width: 500px) {
+        .auth-card {
+            padding: 28px 22px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+
+<main class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            <div class="auth-logo-icon">&#x1F393;</div>
+
+            <h1>
+                ShikshaSetu-AI
+            </h1>
+
+            <p>
+                Your Digital Learning Companion
+            </p>
+        </div>
+
+        <!-- TABS -->
+
+        <div class="auth-tabs">
+
+            <button
+                id="loginTab"
+                class="auth-tab active"
+                type="button"
+            >
+                Login
+            </button>
+
+            <button
+                id="registerTab"
+                class="auth-tab"
+                type="button"
+            >
+                Register
+            </button>
+
+        </div>
+
+        <!-- LOGIN -->
+
+        <form
+            id="loginForm"
+            class="auth-form active"
+        >
+
+            <div class="form-group">
+
+                <label for="loginEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="loginPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="auth-submit"
+                id="loginSubmit"
+            >
+                Login
+            </button>
+
+        </form>
+
+        <!-- REGISTER -->
+
+        <form
+            id="registerForm"
+            class="auth-form"
+        >
+
+            <div class="form-group">
+
+                <label for="registerName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Enter your name"
+                    autocomplete="name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="registerEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="registerPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="language">
+                    Preferred Language
+                </label>
+
+                <select id="language">
+
+                    <option value="Hindi">
+                        Hindi
+                    </option>
+
+                    <option value="English">
+                        English
+                    </option>
+
+                    <option value="Hinglish">
+                        Hinglish
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="educationLevel">
+                    Education Level
+                </label>
+
+                <select id="educationLevel">
+
+                    <option value="">
+                        Select your level
+                    </option>
+
+                    <option value="12th">
+                        Class 12
+                    </option>
+
+                    <option value="Undergraduate">
+                        Undergraduate
+                    </option>
+
+                    <option value="Postgraduate">
+                        Postgraduate
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button
+                type="submit"
+                class="auth-submit"
+                id="registerSubmit"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+        <!-- MESSAGE -->
+
+        <div
+            id="authMessage"
+            class="auth-message"
+        ></div>
+
+        <a
+            href="index.html"
+            class="back-home"
+        >
+            &larr; Back to Home
+        </a>
+
+    </div>
+
+</main>
+
+<script>
+
+    const API_URL =
+        "/api";
+
+    const loginTab =
+        document.getElementById(
+            "loginTab"
+        );
+
+    const registerTab =
+        document.getElementById(
+            "registerTab"
+        );
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+    const registerForm =
+        document.getElementById(
+            "registerForm"
+        );
+
+    const authMessage =
+        document.getElementById(
+            "authMessage"
+        );
+
+    const loginSubmit =
+        document.getElementById(
+            "loginSubmit"
+        );
+
+    const registerSubmit =
+        document.getElementById(
+            "registerSubmit"
+        );
+
+    // ===============================
+    // TAB SWITCHING
+    // ===============================
+
+    loginTab.addEventListener(
+        "click",
+        function () {
+
+            loginTab.classList.add(
+                "active"
+            );
+
+            registerTab.classList.remove(
+                "active"
+            );
+
+            loginForm.classList.add(
+                "active"
+            );
+
+            registerForm.classList.remove(
+                "active"
+            );
+
+            clearMessage();
+        }
+    );
+
+    registerTab.addEventListener(
+        "click",
+        function () {
+
+            registerTab.classList.add(
+                "active"
+            );
+
+            loginTab.classList.remove(
+                "active"
+            );
+
+            registerForm.classList.add(
+                "active"
+            );
+
+            loginForm.classList.remove(
+                "active"
+            );
+
+            clearMessage();
+        }
+    );
+
+    // ===============================
+    // LOGIN
+    // ===============================
+
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            clearMessage();
+
+            const email =
+                document
+                    .getElementById(
+                        "loginEmail"
+                    )
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value;
+
+            loginSubmit.disabled =
+                true;
+
+            loginSubmit.textContent =
+                "Logging in...";
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/auth/login`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                email: email,
+                                password: password
+                            })
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Login failed"
+                    );
+                }
+
+                localStorage.setItem(
+                    "shikshaToken",
+                    data.token
+                );
+
+                localStorage.setItem(
+                    "shikshaUser",
+                    JSON.stringify(
+                        data.user
+                    )
+                );
+
+                // Store preferred language
+                if (
+                    data.user &&
+                    data.user.language
+                ) {
+
+                    const language =
+                        data.user.language
+                            .toLowerCase();
+
+                    if (
+                        language === "hindi"
+                    ) {
+
+                        localStorage.setItem(
+                            "shikshaLanguage",
+                            "hi"
+                        );
+
+                    } else {
+
+                        localStorage.setItem(
+                            "shikshaLanguage",
+                            "en"
+                        );
+                    }
+                }
+
+                showMessage(
+                    "Login successful. Redirecting...",
+                    "success"
+                );
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    },
+                    500
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+                showMessage(
+                    error.message ||
+                    "Unable to login. Please check the server.",
+                    "error"
+                );
+
+            } finally {
+
+                loginSubmit.disabled =
+                    false;
+
+                loginSubmit.textContent =
+                    "Login";
+            }
+        }
+    );
+
+    // ===============================
+    // REGISTER
+    // ===============================
+
+    registerForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            clearMessage();
+
+            const name =
+                document
+                    .getElementById(
+                        "registerName"
+                    )
+                    .value
+                    .trim();
+
+            const email =
+                document
+                    .getElementById(
+                        "registerEmail"
+                    )
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById(
+                        "registerPassword"
+                    )
+                    .value;
+
+            const language =
+                document
+                    .getElementById(
+                        "language"
+                    )
+                    .value;
+
+            const educationLevel =
+                document
+                    .getElementById(
+                        "educationLevel"
+                    )
+                    .value;
+
+            registerSubmit.disabled =
+                true;
+
+            registerSubmit.textContent =
+                "Creating account...";
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/auth/register`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                name: name,
+                                email: email,
+                                password: password,
+                                language: language,
+                                educationLevel:
+                                    educationLevel,
+                                interests: []
+                            })
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Registration failed"
+                    );
+                }
+
+                showMessage(
+                    "Account created successfully. Please login.",
+                    "success"
+                );
+
+                registerForm.reset();
+
+                setTimeout(
+                    function () {
+
+                        loginTab.click();
+
+                        document.getElementById(
+                            "loginEmail"
+                        ).value = email;
+
+                    },
+                    700
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+                showMessage(
+                    error.message ||
+                    "Unable to register. Please check the server.",
+                    "error"
+                );
+
+            } finally {
+
+                registerSubmit.disabled =
+                    false;
+
+                registerSubmit.textContent =
+                    "Create Account";
+            }
+        }
+    );
+
+    // ===============================
+    // MESSAGE HELPERS
+    // ===============================
+
+    function showMessage(
+        message,
+        type
+    ) {
+
+        authMessage.textContent =
+            message;
+
+        authMessage.className =
+            `auth-message ${type}`;
+    }
+
+    function clearMessage() {
+
+        authMessage.textContent =
+            "";
+
+        authMessage.className =
+            "auth-message";
+    }
+
+</script>
+
+
+</body>
+
+</html>
+
+
+

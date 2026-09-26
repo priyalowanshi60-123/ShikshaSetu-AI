@@ -1,0 +1,893 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ShikshaSetu-AI | Dashboard</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: #2563eb;
+        color: white;
+        padding: 18px 35px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .user-name {
+        font-weight: 600;
+    }
+
+    #languageSelect {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 7px;
+        background: white;
+        color: #1f2937;
+        cursor: pointer;
+    }
+
+    .logout-btn {
+        border: none;
+        background: white;
+        color: #2563eb;
+        padding: 9px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .logout-btn:hover {
+        background: #eff6ff;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .welcome {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+        margin-bottom: 10px;
+        font-size: 30px;
+    }
+
+    .welcome p {
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-bottom: 25px;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 22px;
+        border-radius: 14px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+    }
+
+    .stat-card h3 {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #2563eb;
+    }
+
+    .section {
+        background: white;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        margin-bottom: 25px;
+    }
+
+    .section h2 {
+        margin-bottom: 18px;
+    }
+
+    .progress-item {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 14px;
+    }
+
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 10px;
+    }
+
+    .course-title {
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    .percentage {
+        font-weight: bold;
+        color: #2563eb;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: #e5e7eb;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: #2563eb;
+        border-radius: 20px;
+        transition: width 0.4s ease;
+    }
+
+    .completed-info {
+        margin-top: 9px;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    .empty-state,
+    .loading {
+        text-align: center;
+        padding: 25px;
+        color: #6b7280;
+    }
+
+    .error-message {
+        text-align: center;
+        padding: 25px;
+        color: #dc2626;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card h2 {
+        margin-bottom: 10px;
+        font-size: 21px;
+    }
+
+    .card p {
+        color: #6b7280;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        flex: 1;
+    }
+
+    .card-btn {
+        display: inline-block;
+        width: fit-content;
+        text-decoration: none;
+        background: #2563eb;
+        color: white;
+        padding: 11px 16px;
+        border-radius: 8px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+    }
+
+    .card-btn:hover {
+        background: #1d4ed8;
+    }
+
+    .footer {
+        text-align: center;
+        padding: 30px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    @media (max-width: 850px) {
+        .cards,
+        .stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .navbar {
+            padding: 15px 18px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 19px;
+        }
+
+        .nav-right {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .user-name {
+            display: none;
+        }
+
+        .welcome h1 {
+            font-size: 24px;
+        }
+
+        .cards,
+        .stats {
+            grid-template-columns: 1fr;
+        }
+
+        .progress-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .card-btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        ShikshaSetu-AI
+    </div>
+
+    <div class="nav-right">
+
+        <span
+            id="userName"
+            class="user-name"
+        >
+            Student
+        </span>
+
+        <select id="languageSelect">
+            <option value="en">English</option>
+            <option value="hi">&#x0939;&#x093F;&#x0902;&#x0926;&#x0940;</option>
+        </select>
+
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+            data-i18n="logout"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <section class="welcome">
+
+        <h1>
+            <span data-i18n="welcome">
+                Welcome
+            </span>,
+            <span id="welcomeName">
+                Student
+            </span>!
+        </h1>
+
+        <p>
+            Learn, practice and build your future with ShikshaSetu-AI.
+        </p>
+
+    </section>
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <h3 data-i18n="coursesTracked">
+                Courses Tracked
+            </h3>
+
+            <div
+                id="courseCount"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3 data-i18n="lessonsCompleted">
+                Lessons Completed
+            </h3>
+
+            <div
+                id="lessonCount"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3 data-i18n="averageProgress">
+                Average Progress
+            </h3>
+
+            <div
+                id="averageProgress"
+                class="stat-value"
+            >
+                0%
+            </div>
+
+        </div>
+
+    </section>
+
+    <section
+        class="section"
+        id="learningProgress"
+    >
+
+        <h2 data-i18n="learningProgress">
+            Your Learning Progress
+        </h2>
+
+        <div
+            id="progressContainer"
+            class="loading"
+        >
+            Loading progress...
+        </div>
+
+    </section>
+
+    <section class="cards">
+
+        <div class="card">
+
+            <h2 data-i18n="aiAssistant">
+                AI Assistant
+            </h2>
+
+            <p>
+                Ask your study doubts and get simple,
+                student-friendly AI explanations.
+            </p>
+
+            <a
+                href="ai-assistant.html"
+                class="card-btn"
+                data-i18n="openAI"
+            >
+                Open AI Assistant
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2 data-i18n="myCourses">
+                My Courses
+            </h2>
+
+            <p>
+                Explore courses and lessons and learn at your own pace.
+            </p>
+
+            <a
+                href="courses.html"
+                class="card-btn"
+                data-i18n="viewCourses"
+            >
+                View Courses
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2 data-i18n="myProgress">
+                My Progress
+            </h2>
+
+            <p>
+                Track your completed lessons and learning progress.
+            </p>
+
+            <button
+                type="button"
+                class="card-btn"
+                onclick="goToProgress()"
+                data-i18n="viewProgress"
+            >
+                View Progress
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <h2 data-i18n="careerRoadmap">
+                Career Roadmap
+            </h2>
+
+            <p>
+                Discover learning paths and career opportunities.
+            </p>
+
+            <a
+                href="career.html"
+                class="card-btn"
+                data-i18n="openRoadmap"
+            >
+                Open Roadmap
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2 data-i18n="scholarships">
+                Scholarships
+            </h2>
+
+            <p>
+                Find scholarship opportunities for higher education.
+            </p>
+
+            <a
+                href="scholarships.html"
+                class="card-btn"
+                data-i18n="findScholarships"
+            >
+                Find Scholarships
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2 data-i18n="quizzes">
+                Quizzes
+            </h2>
+
+            <p>
+                Test your knowledge with interactive quizzes.
+            </p>
+
+            <a
+                href="quiz.html"
+                class="card-btn"
+                data-i18n="startQuiz"
+            >
+                Start Quiz
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    &copy; 2026 ShikshaSetu-AI
+</footer>
+
+<script src="js/language.js"></script>
+
+<script>
+
+    const API_URL =
+        "http://localhost:5000/api";
+
+    const token =
+        localStorage.getItem(
+            "shikshaToken"
+        );
+
+    const userData =
+        localStorage.getItem(
+            "shikshaUser"
+        );
+
+    if (!token || !userData) {
+        window.location.href =
+            "login.html";
+    }
+
+    try {
+
+        const user =
+            JSON.parse(userData);
+
+        document.getElementById(
+            "userName"
+        ).textContent =
+            user.name || "Student";
+
+        document.getElementById(
+            "welcomeName"
+        ).textContent =
+            user.name || "Student";
+
+    } catch (error) {
+
+        console.error(
+            "User data error:",
+            error
+        );
+
+        localStorage.removeItem(
+            "shikshaToken"
+        );
+
+        localStorage.removeItem(
+            "shikshaUser"
+        );
+
+        window.location.href =
+            "login.html";
+    }
+
+    document.getElementById(
+        "logoutBtn"
+    ).addEventListener(
+        "click",
+        function () {
+
+            localStorage.removeItem(
+                "shikshaToken"
+            );
+
+            localStorage.removeItem(
+                "shikshaUser"
+            );
+
+            localStorage.removeItem(
+                "shikshaLanguage"
+            );
+
+            window.location.href =
+                "login.html";
+        }
+    );
+
+    async function loadProgress() {
+
+        const container =
+            document.getElementById(
+                "progressContainer"
+            );
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/progress/dashboard`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization:
+                                `Bearer ${token}`
+                        }
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (
+                response.status === 401 ||
+                response.status === 403
+            ) {
+
+                localStorage.removeItem(
+                    "shikshaToken"
+                );
+
+                localStorage.removeItem(
+                    "shikshaUser"
+                );
+
+                window.location.href =
+                    "login.html";
+
+                return;
+            }
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Progress load failed"
+                );
+            }
+
+            const progressList =
+                Array.isArray(
+                    data.progress
+                )
+                    ? data.progress
+                    : [];
+
+            updateStats(
+                progressList
+            );
+
+            if (
+                progressList.length === 0
+            ) {
+
+                container.className =
+                    "empty-state";
+
+                container.textContent =
+                    "No course progress available yet.";
+
+                return;
+            }
+
+            container.className = "";
+            container.innerHTML = "";
+
+            progressList.forEach(
+                function (item) {
+
+                    const percentage =
+                        Math.max(
+                            0,
+                            Math.min(
+                                100,
+                                Number(
+                                    item.progressPercentage
+                                ) || 0
+                            )
+                        );
+
+                    const completed =
+                        Array.isArray(
+                            item.completedLessons
+                        )
+                            ? item.completedLessons.length
+                            : 0;
+
+                    const title =
+                        item.courseId &&
+                        typeof item.courseId === "object" &&
+                        item.courseId.title
+                            ? item.courseId.title
+                            : "Course";
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+                    card.className =
+                        "progress-item";
+
+                    card.innerHTML = `
+                        <div class="progress-header">
+
+                            <div class="course-title">
+                                ${escapeHtml(title)}
+                            </div>
+
+                            <div class="percentage">
+                                ${percentage}%
+                            </div>
+
+                        </div>
+
+                        <div class="progress-bar">
+                            <div
+                                class="progress-fill"
+                                style="width:${percentage}%"
+                            ></div>
+                        </div>
+
+                        <div class="completed-info">
+                            Completed lessons: ${completed}
+                        </div>
+                    `;
+
+                    container.appendChild(
+                        card
+                    );
+                }
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Progress load error:",
+                error
+            );
+
+            container.className =
+                "error-message";
+
+            container.textContent =
+                "Progress load nahi ho paaya. Please server check karo.";
+        }
+    }
+
+    function updateStats(
+        progressList
+    ) {
+
+        const courseCount =
+            progressList.length;
+
+        let lessonCount = 0;
+        let totalProgress = 0;
+
+        progressList.forEach(
+            function (item) {
+
+                if (
+                    Array.isArray(
+                        item.completedLessons
+                    )
+                ) {
+
+                    lessonCount +=
+                        item.completedLessons.length;
+                }
+
+                totalProgress +=
+                    Number(
+                        item.progressPercentage
+                    ) || 0;
+            }
+        );
+
+        const average =
+            courseCount > 0
+                ? Math.round(
+                      totalProgress /
+                          courseCount
+                  )
+                : 0;
+
+        document.getElementById(
+            "courseCount"
+        ).textContent =
+            courseCount;
+
+        document.getElementById(
+            "lessonCount"
+        ).textContent =
+            lessonCount;
+
+        document.getElementById(
+            "averageProgress"
+        ).textContent =
+            `${average}%`;
+    }
+
+    function goToProgress() {
+
+        const section =
+            document.getElementById(
+                "learningProgress"
+            );
+
+        if (section) {
+
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    }
+
+    function escapeHtml(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+    }
+
+    loadProgress();
+
+</script>
+
+</body>
+</html>
+

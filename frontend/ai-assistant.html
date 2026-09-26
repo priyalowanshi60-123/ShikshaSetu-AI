@@ -1,0 +1,1020 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ShikshaSetu-AI | AI Assistant</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: #2563eb;
+        color: white;
+        padding: 18px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #languageSelect {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 7px;
+        background: white;
+        color: #1f2937;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .back-btn {
+        color: white;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 10px 16px;
+        border-radius: 8px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .header-card,
+    .assistant-card {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-card {
+        margin-bottom: 20px;
+    }
+
+    .header-card h1 {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .header-card p {
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .language-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .language-row label {
+        font-weight: bold;
+    }
+
+    #voiceLanguage {
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: white;
+        font-size: 15px;
+    }
+
+    .question-box {
+        width: 100%;
+        min-height: 150px;
+        resize: vertical;
+        padding: 16px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        outline: none;
+    }
+
+    .question-box:focus {
+        border-color: #2563eb;
+    }
+
+    .button-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+
+    .btn {
+        border: none;
+        padding: 12px 18px;
+        border-radius: 9px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .ask-btn {
+        background: #2563eb;
+        color: white;
+    }
+
+    .voice-btn {
+        background: #16a34a;
+        color: white;
+    }
+
+    .voice-btn.recording {
+        background: #dc2626;
+    }
+
+    .clear-btn {
+        background: #e5e7eb;
+        color: #1f2937;
+    }
+
+    .speak-btn {
+        background: #7c3aed;
+        color: white;
+    }
+
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .status {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #6b7280;
+        min-height: 20px;
+    }
+
+    .answer-card {
+        display: none;
+        margin-top: 25px;
+        padding: 25px;
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+    }
+
+    .answer-card h2 {
+        margin-bottom: 15px;
+        font-size: 21px;
+    }
+
+    .answer-text {
+        line-height: 1.7;
+        white-space: pre-wrap;
+    }
+
+    .error {
+        display: none;
+        margin-top: 15px;
+        padding: 13px;
+        border-radius: 8px;
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    @media (max-width: 600px) {
+        .navbar {
+            padding: 15px 18px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 20px;
+        }
+
+        .nav-right {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .header-card h1 {
+            font-size: 25px;
+        }
+
+        .assistant-card,
+        .header-card {
+            padding: 22px;
+        }
+
+        .button-row {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .language-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #voiceLanguage {
+            width: 100%;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        ShikshaSetu-AI
+    </div>
+
+    <div class="nav-right">
+
+        <select id="languageSelect">
+            <option value="en">English</option>
+            <option value="hi">à¤¹à¤¿à¤‚à¤¦à¥€</option>
+        </select>
+
+        <a
+            href="dashboard.html"
+            class="back-btn"
+        >
+            &larr; Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <section class="header-card">
+
+        <h1>
+            &#x1F916;
+            <span data-i18n="aiAssistant">
+                AI Assistant
+            </span>
+        </h1>
+
+        <p>
+            Apna doubt type karo ya microphone se bolo.
+            ShikshaSetu-AI tumhe simple aur student-friendly answer dega.
+        </p>
+
+    </section>
+
+    <section class="assistant-card">
+
+        <div class="language-row">
+
+            <label
+                for="voiceLanguage"
+                data-i18n="voiceLanguage"
+            >
+                Voice Language
+            </label>
+
+            <select id="voiceLanguage">
+
+                <option
+                    value="en-IN"
+                    data-i18n-option="english"
+                >
+                    English
+                </option>
+
+                <option
+                    value="hi-IN"
+                    data-i18n-option="hindi"
+                >
+                    à¤¹à¤¿à¤‚à¤¦à¥€
+                </option>
+
+            </select>
+
+        </div>
+
+        <textarea
+            id="questionInput"
+            class="question-box"
+            data-i18n-placeholder="questionPlaceholder"
+            placeholder="Type your question here..."
+        ></textarea>
+
+        <div class="button-row">
+
+            <button
+                id="voiceBtn"
+                class="btn voice-btn"
+                type="button"
+                data-i18n="speak"
+            >
+                &#x1F3A4; Speak
+            </button>
+
+            <button
+                id="askBtn"
+                class="btn ask-btn"
+                type="button"
+                data-i18n="askAI"
+            >
+                &#x1F916; Ask AI
+            </button>
+
+            <button
+                id="clearBtn"
+                class="btn clear-btn"
+                type="button"
+                data-i18n="clear"
+            >
+                Clear
+            </button>
+
+        </div>
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+        <div
+            id="errorBox"
+            class="error"
+        ></div>
+
+        <div
+            id="answerCard"
+            class="answer-card"
+        >
+
+            <h2 data-i18n="aiAnswer">
+                &#x1F4A1; AI Answer
+            </h2>
+
+            <div
+                id="answerText"
+                class="answer-text"
+            ></div>
+
+            <div class="button-row">
+
+                <button
+                    id="speakAnswerBtn"
+                    class="btn speak-btn"
+                    type="button"
+                    data-i18n="readAnswer"
+                >
+                    ðŸ”Š Read Answer
+                </button>
+
+                <button
+                    id="stopSpeakingBtn"
+                    class="btn clear-btn"
+                    type="button"
+                    data-i18n="stopVoice"
+                >
+                    â¹ Stop Voice
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="js/language.js"></script>
+
+<script>
+    const API_URL =
+        "http://localhost:5000/api";
+
+    const token =
+        localStorage.getItem("shikshaToken");
+
+    const questionInput =
+        document.getElementById(
+            "questionInput"
+        );
+
+    const voiceBtn =
+        document.getElementById(
+            "voiceBtn"
+        );
+
+    const askBtn =
+        document.getElementById(
+            "askBtn"
+        );
+
+    const clearBtn =
+        document.getElementById(
+            "clearBtn"
+        );
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+    const answerCard =
+        document.getElementById(
+            "answerCard"
+        );
+
+    const answerText =
+        document.getElementById(
+            "answerText"
+        );
+
+    const voiceLanguage =
+        document.getElementById(
+            "voiceLanguage"
+        );
+
+    const speakAnswerBtn =
+        document.getElementById(
+            "speakAnswerBtn"
+        );
+
+    const stopSpeakingBtn =
+        document.getElementById(
+            "stopSpeakingBtn"
+        );
+
+    if (!token) {
+        window.location.href =
+            "login.html";
+    }
+
+    // ===============================
+    // VOICE INPUT
+    // ===============================
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    let recognition = null;
+    let isRecording = false;
+
+    if (SpeechRecognition) {
+
+        recognition =
+            new SpeechRecognition();
+
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart =
+            function () {
+
+                isRecording = true;
+
+                voiceBtn.classList.add(
+                    "recording"
+                );
+
+                voiceBtn.textContent =
+                    getTranslation(
+                        "stopListening"
+                    );
+
+                status.textContent =
+                    getVoiceMessage(
+                        "listening"
+                    );
+            };
+
+recognition.onresult =
+    function (event) {
+
+        const transcript =
+            event.results[0][0]
+                .transcript
+                .trim();
+
+        if (!transcript) {
+            return;
+        }
+
+        questionInput.value =
+            transcript;
+
+        status.textContent =
+            getVoiceMessage(
+                "captured"
+            );
+
+        // Voice se question milte hi
+        // AI ko automatically send karo
+        setTimeout(() => {
+            askAI();
+        }, 500);
+    };        recognition.onerror =
+            function (event) {
+
+                console.error(
+                    "Speech recognition error:",
+                    event.error
+                );
+
+                resetVoice();
+
+                if (
+                    event.error ===
+                    "not-allowed"
+                ) {
+
+                    status.textContent =
+                        getVoiceMessage(
+                            "permission"
+                        );
+
+                } else if (
+                    event.error ===
+                    "no-speech"
+                ) {
+
+                    status.textContent =
+                        getVoiceMessage(
+                            "noSpeech"
+                        );
+
+                } else {
+
+                    status.textContent =
+                        getVoiceMessage(
+                            "error"
+                        );
+                }
+            };
+
+        recognition.onend =
+            function () {
+
+                resetVoice();
+            };
+
+    } else {
+
+        voiceBtn.disabled = true;
+
+        status.textContent =
+            getVoiceMessage(
+                "unsupported"
+            );
+    }
+
+    voiceBtn.addEventListener(
+        "click",
+        function () {
+
+            if (!recognition) {
+                return;
+            }
+
+            if (isRecording) {
+
+                recognition.stop();
+                return;
+            }
+
+            recognition.lang =
+                voiceLanguage.value;
+
+            try {
+
+                recognition.start();
+
+            } catch (error) {
+
+                console.error(
+                    "Recognition start error:",
+                    error
+                );
+            }
+        }
+    );
+
+    function resetVoice() {
+
+        isRecording = false;
+
+        voiceBtn.classList.remove(
+            "recording"
+        );
+
+        voiceBtn.textContent =
+            getTranslation(
+                "speak"
+            );
+    }
+
+    function getVoiceMessage(type) {
+
+        const language =
+            getSelectedLanguage();
+
+        const messages = {
+
+            en: {
+                listening:
+                    "Listening... speak now.",
+                captured:
+                    "Voice question captured.",
+                permission:
+                    "Please allow microphone permission.",
+                noSpeech:
+                    "I could not hear anything. Please speak clearly.",
+                error:
+                    "Voice input error. Please try again.",
+                unsupported:
+                    "This browser does not support voice recognition."
+            },
+
+            hi: {
+                listening:
+                    "à¤¸à¥à¤¨ à¤°à¤¹à¤¾ à¤¹à¥‚à¤... à¤¬à¥‹à¤²à¤¿à¤à¥¤",
+                captured:
+                    "à¤µà¥‰à¤‡à¤¸ à¤ªà¥à¤°à¤¶à¥à¤¨ à¤®à¤¿à¤² à¤—à¤¯à¤¾à¥¤",
+                permission:
+                    "à¤•à¥ƒà¤ªà¤¯à¤¾ à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¥‹à¤¨ à¤•à¥€ permission allow à¤•à¤°à¥‡à¤‚à¥¤",
+                noSpeech:
+                    "à¤•à¥à¤› à¤¸à¥à¤¨à¤¾à¤ˆ à¤¨à¤¹à¥€à¤‚ à¤¦à¤¿à¤¯à¤¾à¥¤ à¤•à¥ƒà¤ªà¤¯à¤¾ à¤¸à¤¾à¤«à¤¼ à¤¬à¥‹à¤²à¥‡à¤‚à¥¤",
+                error:
+                    "à¤µà¥‰à¤‡à¤¸ à¤‡à¤¨à¤ªà¥à¤Ÿ à¤®à¥‡à¤‚ à¤¸à¤®à¤¸à¥à¤¯à¤¾ à¤¹à¥à¤ˆà¥¤ à¤«à¤¿à¤° à¤¸à¥‡ à¤•à¥‹à¤¶à¤¿à¤¶ à¤•à¤°à¥‡à¤‚à¥¤",
+                unsupported:
+                    "à¤‡à¤¸ à¤¬à¥à¤°à¤¾à¤‰à¤œà¤¼à¤° à¤®à¥‡à¤‚ à¤µà¥‰à¤‡à¤¸ à¤°à¤¿à¤•à¤—à¥à¤¨à¤¿à¤¶à¤¨ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤"
+            }
+        };
+
+        return (
+            messages[language][type] ||
+            messages.en[type]
+        );
+    }
+
+    // ===============================
+    // ASK AI
+    // ===============================
+
+    askBtn.addEventListener(
+        "click",
+        askAI
+    );
+
+    async function askAI() {
+
+        const question =
+            questionInput.value.trim();
+
+        hideError();
+
+        if (!question) {
+
+            showError(
+                getAIMessage(
+                    "emptyQuestion"
+                )
+            );
+
+            return;
+        }
+
+        askBtn.disabled = true;
+
+        status.textContent =
+            getAIMessage(
+                "loading"
+            );
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/ai/ask`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            Authorization:
+                                `Bearer ${token}`
+                        },
+
+                        body: JSON.stringify({
+                            question:
+                                question
+                        })
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (
+                response.status === 401 ||
+                response.status === 403
+            ) {
+
+                localStorage.removeItem(
+                    "shikshaToken"
+                );
+
+                localStorage.removeItem(
+                    "shikshaUser"
+                );
+
+                window.location.href =
+                    "login.html";
+
+                return;
+            }
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "AI response not available"
+                );
+            }
+
+            answerText.textContent =
+                data.answer ||
+                getAIMessage(
+                    "noAnswer"
+                );
+
+            answerCard.style.display =
+                "block";
+
+            status.textContent =
+                getAIMessage(
+                    "ready"
+                );
+
+            answerCard.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        } catch (error) {
+
+            console.error(
+                "AI request error:",
+                error
+            );
+
+            showError(
+                getAIMessage(
+                    "serverError"
+                )
+            );
+
+            status.textContent = "";
+
+        } finally {
+
+            askBtn.disabled = false;
+        }
+    }
+
+    // ===============================
+    // CLEAR
+    // ===============================
+
+    clearBtn.addEventListener(
+        "click",
+        function () {
+
+            questionInput.value = "";
+
+            answerText.textContent = "";
+
+            answerCard.style.display =
+                "none";
+
+            status.textContent = "";
+
+            hideError();
+
+            speechSynthesis.cancel();
+        }
+    );
+
+    // ===============================
+    // READ ANSWER
+    // ===============================
+
+    speakAnswerBtn.addEventListener(
+        "click",
+        function () {
+
+            const answer =
+                answerText.textContent.trim();
+
+            if (!answer) {
+                return;
+            }
+
+            if (
+                !("speechSynthesis" in window)
+            ) {
+
+                showError(
+                    getAIMessage(
+                        "speechUnsupported"
+                    )
+                );
+
+                return;
+            }
+
+            speechSynthesis.cancel();
+
+            const speech =
+                new SpeechSynthesisUtterance(
+                    answer
+                );
+
+            speech.lang =
+                detectLanguage(
+                    answer
+                );
+
+            speech.rate = 0.95;
+            speech.pitch = 1;
+
+            speechSynthesis.speak(
+                speech
+            );
+        }
+    );
+
+    stopSpeakingBtn.addEventListener(
+        "click",
+        function () {
+
+            speechSynthesis.cancel();
+
+        }
+    );
+
+    function detectLanguage(text) {
+
+        if (
+            /[\u0900-\u097F]/.test(text)
+        ) {
+            return "hi-IN";
+        }
+
+        return "en-IN";
+    }
+
+    // ===============================
+    // AI MESSAGES
+    // ===============================
+
+    function getAIMessage(type) {
+
+        const language =
+            getSelectedLanguage();
+
+        const messages = {
+
+            en: {
+                emptyQuestion:
+                    "Please type or speak a question first.",
+                loading:
+                    "AI is generating an answer...",
+                ready:
+                    "Answer ready.",
+                noAnswer:
+                    "AI did not return an answer.",
+                serverError:
+                    "AI response could not be loaded. Please check the server.",
+                speechUnsupported:
+                    "Text-to-speech is not available in this browser."
+            },
+
+            hi: {
+                emptyQuestion:
+                    "à¤ªà¤¹à¤²à¥‡ à¤•à¥‹à¤ˆ à¤ªà¥à¤°à¤¶à¥à¤¨ à¤²à¤¿à¤–à¥‡à¤‚ à¤¯à¤¾ à¤¬à¥‹à¤²à¥‡à¤‚à¥¤",
+                loading:
+                    "à¤à¤†à¤ˆ à¤‰à¤¤à¥à¤¤à¤° à¤¤à¥ˆà¤¯à¤¾à¤° à¤•à¤° à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                ready:
+                    "à¤‰à¤¤à¥à¤¤à¤° à¤¤à¥ˆà¤¯à¤¾à¤° à¤¹à¥ˆà¥¤",
+                noAnswer:
+                    "à¤à¤†à¤ˆ à¤¨à¥‡ à¤•à¥‹à¤ˆ à¤‰à¤¤à¥à¤¤à¤° à¤¨à¤¹à¥€à¤‚ à¤¦à¤¿à¤¯à¤¾à¥¤",
+                serverError:
+                    "à¤à¤†à¤ˆ à¤‰à¤¤à¥à¤¤à¤° à¤²à¥‹à¤¡ à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹ à¤ªà¤¾à¤¯à¤¾à¥¤ à¤•à¥ƒà¤ªà¤¯à¤¾ à¤¸à¤°à¥à¤µà¤° à¤šà¥‡à¤• à¤•à¤°à¥‡à¤‚à¥¤",
+                speechUnsupported:
+                    "à¤‡à¤¸ à¤¬à¥à¤°à¤¾à¤‰à¤œà¤¼à¤° à¤®à¥‡à¤‚ à¤Ÿà¥‡à¤•à¥à¤¸à¥à¤Ÿ-à¤Ÿà¥‚-à¤¸à¥à¤ªà¥€à¤š à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤"
+            }
+        };
+
+        return (
+            messages[language][type] ||
+            messages.en[type]
+        );
+    }
+
+    function showError(message) {
+
+        errorBox.textContent =
+            message;
+
+        errorBox.style.display =
+            "block";
+    }
+
+    function hideError() {
+
+        errorBox.textContent = "";
+
+        errorBox.style.display =
+            "none";
+    }
+
+    // ===============================
+    // LANGUAGE CHANGE
+    // ===============================
+
+    document.addEventListener(
+        "languageChanged",
+        function () {
+
+            resetVoice();
+
+            if (
+                isRecording &&
+                recognition
+            ) {
+                recognition.stop();
+            }
+
+            status.textContent = "";
+            hideError();
+
+            const language =
+                getSelectedLanguage();
+
+            voiceLanguage.value =
+                language === "hi"
+                    ? "hi-IN"
+                    : "en-IN";
+        }
+    );
+
+    // Initial voice language
+    voiceLanguage.value =
+        getSelectedLanguage() === "hi"
+            ? "hi-IN"
+            : "en-IN";
+</script>
+
+</body>
+</html>
+
+

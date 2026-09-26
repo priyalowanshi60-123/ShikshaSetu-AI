@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ShikshaSetu-AI | Career Roadmap</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: #2563eb;
+        color: white;
+        padding: 18px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #languageSelect {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 7px;
+        background: white;
+        color: #1f2937;
+        cursor: pointer;
+    }
+
+    .back-btn {
+        color: white;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 10px 16px;
+        border-radius: 8px;
+    }
+
+    .container {
+        max-width: 950px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .hero,
+    .form-card {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .form-group select {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        font-size: 16px;
+        background: white;
+    }
+
+    .generate-btn {
+        width: 100%;
+        padding: 15px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 9px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .generate-btn:hover {
+        background: #1d4ed8;
+    }
+
+    .roadmap {
+        display: none;
+    }
+
+    .roadmap h2 {
+        margin-bottom: 20px;
+    }
+
+    .step {
+        background: white;
+        border-left: 5px solid #2563eb;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .step h3 {
+        margin-bottom: 8px;
+    }
+
+    .step p {
+        color: #6b7280;
+        line-height: 1.5;
+    }
+
+    .skills {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #2563eb;
+    }
+
+    @media (max-width: 600px) {
+        .navbar {
+            padding: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 20px;
+        }
+
+        .nav-right {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .hero h1 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+    ShikshaSetu-AI
+</div>
+
+<div class="nav-right">
+
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+    </select>
+
+    <a
+        href="dashboard.html"
+        class="back-btn"
+        id="backDashboard"
+    >
+        Back to Dashboard
+    </a>
+
+</div>
+
+</nav>
+
+<main class="container">
+
+<section class="hero">
+
+    <h1 id="pageTitle">
+        Career Roadmap
+    </h1>
+
+    <p id="pageDescription">
+        Select your career goal and education level to generate a learning roadmap.
+    </p>
+
+</section>
+
+<section class="form-card">
+
+    <div class="form-group">
+
+        <label
+            for="careerGoal"
+            id="careerGoalLabel"
+        >
+            Career Goal
+        </label>
+
+        <select id="careerGoal">
+
+            <option
+                value=""
+                id="careerPlaceholder"
+            >
+                Select career goal
+            </option>
+
+            <option value="software">
+                Software Developer
+            </option>
+
+            <option value="data">
+                Data Analyst
+            </option>
+
+            <option value="web">
+                Web Developer
+            </option>
+
+            <option value="cyber">
+                Cyber Security
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+
+        <label
+            for="educationLevel"
+            id="educationLevelLabel"
+        >
+            Education Level
+        </label>
+
+        <select id="educationLevel">
+
+            <option
+                value=""
+                id="educationPlaceholder"
+            >
+                Select education level
+            </option>
+
+            <option value="school">
+                School Student
+            </option>
+
+            <option value="undergraduate">
+                Undergraduate
+            </option>
+
+            <option value="postgraduate">
+                Postgraduate
+            </option>
+
+        </select>
+
+    </div>
+
+    <button
+        class="generate-btn"
+        id="generateBtn"
+    >
+        Generate My Roadmap
+    </button>
+
+</section>
+
+<section
+    class="roadmap"
+    id="roadmap"
+>
+
+    <h2 id="roadmapTitle">
+        Your Career Roadmap
+    </h2>
+
+    <div id="roadmapSteps"></div>
+
+</section>
+
+</main>
+
+<script src="js/language.js"></script>
+
+<script> const careerGoal = document.getElementById( "careerGoal" ); const educationLevel = document.getElementById( "educationLevel" ); const generateBtn = document.getElementById( "generateBtn" ); const roadmap = document.getElementById( "roadmap" ); const roadmapSteps = document.getElementById( "roadmapSteps" ); const careerGoalLabel = document.getElementById( "careerGoalLabel" ); const educationLevelLabel = document.getElementById( "educationLevelLabel" ); const careerPlaceholder = document.getElementById( "careerPlaceholder" ); const educationPlaceholder = document.getElementById( "educationPlaceholder" ); let selectedCareer = null; const localText = { en: { title: "Career Roadmap", description: "Select your career goal and education level to generate a learning roadmap.", careerGoal: "Career Goal", educationLevel: "Education Level", selectCareer: "Select career goal", selectEducation: "Select education level", generate: "Generate My Roadmap", roadmap: "Your Career Roadmap", error: "Please select both career goal and education level." }, hi: { title: "\u0915\u0930\u093f\u092f\u0930 \u0930\u094b\u0921\u092e\u0948\u092a", description: "\u0905\u092a\u0928\u093e \u0915\u0930\u093f\u092f\u0930 \u0932\u0915\u094d\u0937\u094d\u092f \u0914\u0930 \u0936\u093f\u0915\u094d\u0937\u093e \u0938\u094d\u0924\u0930 \u091a\u0941\u0928\u0915\u0930 \u0932\u0930\u094d\u0928\u093f\u0902\u0917 \u0930\u094b\u0921\u092e\u0948\u092a \u092c\u0928\u093e\u090f\u0902\u0964", careerGoal: "\u0915\u0930\u093f\u092f\u0930 \u0932\u0915\u094d\u0937\u094d\u092f", educationLevel: "\u0936\u093f\u0915\u094d\u0937\u093e \u0938\u094d\u0924\u0930", selectCareer: "\u0915\u0930\u093f\u092f\u0930 \u0932\u0915\u094d\u0937\u094d\u092f \u091a\u0941\u0928\u0947\u0902", selectEducation: "\u0936\u093f\u0915\u094d\u0937\u093e \u0938\u094d\u0924\u0930 \u091a\u0941\u0928\u0947\u0902", generate: "\u092e\u0947\u0930\u093e \u0930\u094b\u0921\u092e\u0948\u092a \u092c\u0928\u093e\u090f\u0902", roadmap: "\u0906\u092a\u0915\u093e \u0915\u0930\u093f\u092f\u0930 \u0930\u094b\u0921\u092e\u0948\u092a", error: "\u0915\u0943\u092a\u092f\u093e \u0915\u0930\u093f\u092f\u0930 \u0932\u0915\u094d\u0937\u094d\u092f \u0914\u0930 \u0936\u093f\u0915\u094d\u0937\u093e \u0938\u094d\u0924\u0930 \u0926\u094b\u0928\u094b\u0902 \u091a\u0941\u0928\u0947\u0902\u0964" } }; const roadmaps = { software: [ { enTitle: "Step 1: Programming Basics", hiTitle: "\u091a\u0930\u0923 1: \u092a\u094d\u0930\u094b\u0917\u094d\u0930\u093e\u092e\u093f\u0902\u0917 \u0915\u0940 \u092e\u0942\u0932 \u092c\u093e\u0924\u0947\u0902", enText: "Learn variables, data types, conditions, loops and programming fundamentals.", hiText: "\u0905\u0927\u094d\u092f\u092f\u0928 \u0935\u0948\u0930\u093f\u090f\u092c\u0932, \u0921\u0947\u091f\u093e \u091f\u093e\u0907\u092a, \u0915\u0902\u0921\u093f\u0936\u0928, \u0932\u0942\u092a \u0914\u0930 \u092a\u094d\u0930\u094b\u0917\u094d\u0930\u093e\u092e\u093f\u0902\u0917 \u0915\u0940 \u092e\u0942\u0932 \u092c\u093e\u0924\u0947\u0902 \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: JavaScript / Java / Python", hiSkills: "\u0915\u094c\u0936\u0932: JavaScript / Java / Python" }, { enTitle: "Step 2: Data Structures", hiTitle: "\u091a\u0930\u0923 2: \u0921\u0947\u091f\u093e \u0938\u094d\u091f\u094d\u0930\u0915\u094d\u091a\u0930", enText: "Practice arrays, strings, linked lists, stacks, queues and algorithms.", hiText: "\u0910\u0930\u0947, \u0938\u094d\u091f\u093f\u0902\u0917, \u0932\u093f\u0902\u0915\u094d\u0921 \u0932\u093f\u0938\u094d\u091f, \u0938\u094d\u091f\u0948\u0915, \u0915\u094d\u092f\u0942 \u0914\u0930 \u090f\u0932\u094d\u0917\u094b\u0930\u093f\u0925\u092e \u0915\u0940 \u092a\u094d\u0930\u0948\u0915\u094d\u091f\u093f\u0938 \u0915\u0930\u0947\u0902\u0964", enSkills: "Skills: DSA + Problem Solving", hiSkills: "\u0915\u094c\u0936\u0932: DSA + Problem Solving" }, { enTitle: "Step 3: Development", hiTitle: "\u091a\u0930\u0923 3: \u0921\u0947\u0935\u0932\u092a\u092e\u0947\u0902\u091f", enText: "Learn Git, APIs, databases and frontend/backend development.", hiText: "\u0917\u093f\u091f, APIs, \u0921\u0947\u091f\u093e\u092c\u0947\u0938 \u0914\u0930 frontend/backend development \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: Git + APIs + MongoDB", hiSkills: "\u0915\u094c\u0936\u0932: Git + APIs + MongoDB" }, { enTitle: "Step 4: Projects", hiTitle: "\u091a\u0930\u0923 4: \u092a\u094d\u0930\u094b\u091c\u0947\u0915\u094d\u091f\u094d\u0938", enText: "Build practical projects and document them on GitHub.", hiText: "\u092a\u094d\u0930\u0948\u0915\u094d\u091f\u093f\u0915\u0932 \u092a\u094d\u0930\u094b\u091c\u0947\u0915\u094d\u091f\u094d\u0938 \u092c\u0928\u093e\u090f\u0902 \u0914\u0930 \u0909\u0928\u094d\u0939\u0947\u0902 GitHub \u092a\u0930 \u0921\u0949\u0915\u094d\u092f\u0942\u092e\u0947\u0902\u091f \u0915\u0930\u0947\u0902\u0964", enSkills: "Skills: Projects + GitHub", hiSkills: "\u0915\u094c\u0936\u0932: Projects + GitHub" } ], data: [ { enTitle: "Step 1: Statistics Basics", hiTitle: "\u091a\u0930\u0923 1: \u0938\u093e\u0902\u0916\u094d\u092f\u093f\u0915\u0940 \u0915\u0940 \u092e\u0942\u0932 \u092c\u093e\u0924\u0947\u0902", enText: "Learn statistics, data handling and analytical thinking.", hiText: "\u0938\u093e\u0902\u0916\u094d\u092f\u093f\u0915\u0940, \u0921\u0947\u091f\u093e \u0939\u0948\u0902\u0921\u0932\u093f\u0902\u0917 \u0914\u0930 \u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923\u093e\u0924\u094d\u092e\u0915 \u0938\u094b\u091a \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: Statistics", hiSkills: "\u0915\u094c\u0936\u0932: Statistics" }, { enTitle: "Step 2: Tools", hiTitle: "\u091a\u0930\u0923 2: \u091f\u0942\u0932\u094d\u0938", enText: "Learn Excel, SQL and Python basics.", hiText: "Excel, SQL \u0914\u0930 Python \u0915\u0940 \u092e\u0942\u0932 \u092c\u093e\u0924\u0947\u0902 \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: Excel + SQL + Python", hiSkills: "\u0915\u094c\u0936\u0932: Excel + SQL + Python" }, { enTitle: "Step 3: Visualization", hiTitle: "\u091a\u0930\u0923 3: \u0935\u093f\u091c\u093c\u0941\u0905\u0932\u093e\u0907\u091c\u093c\u0947\u0936\u0928", enText: "Practice charts, dashboards and data storytelling.", hiText: "\u091a\u093e\u0930\u094d\u091f, \u0921\u0948\u0936\u092c\u094b\u0930\u094d\u0921 \u0914\u0930 \u0921\u0947\u091f\u093e \u0938\u094d\u091f\u094b\u0930\u0940\u091f\u0947\u0932\u093f\u0902\u0917 \u0915\u0940 \u092a\u094d\u0930\u0948\u0915\u094d\u091f\u093f\u0938 \u0915\u0930\u0947\u0902\u0964", enSkills: "Skills: Power BI / Tableau", hiSkills: "\u0915\u094c\u0936\u0932: Power BI / Tableau" } ], web: [ { enTitle: "Step 1: HTML and CSS", hiTitle: "\u091a\u0930\u0923 1: HTML \u0914\u0930 CSS", enText: "Learn structure, layouts and responsive web design.", hiText: "Web structure, layouts \u0914\u0930 responsive design \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: HTML + CSS", hiSkills: "\u0915\u094c\u0936\u0932: HTML + CSS" }, { enTitle: "Step 2: JavaScript", hiTitle: "\u091a\u0930\u0923 2: JavaScript", enText: "Learn DOM, events, functions and asynchronous JavaScript.", hiText: "DOM, events, functions \u0914\u0930 asynchronous JavaScript \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: JavaScript", hiSkills: "\u0915\u094c\u0936\u0932: JavaScript" }, { enTitle: "Step 3: Backend", hiTitle: "\u091a\u0930\u0923 3: \u092c\u0948\u0915\u090f\u0902\u0921", enText: "Learn APIs, Node.js, Express and databases.", hiText: "APIs, Node.js, Express \u0914\u0930 databases \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: Node.js + Express + MongoDB", hiSkills: "\u0915\u094c\u0936\u0932: Node.js + Express + MongoDB" } ], cyber: [ { enTitle: "Step 1: Computer Basics", hiTitle: "\u091a\u0930\u0923 1: \u0915\u0902\u092a\u094d\u092f\u0942\u091f\u0930 \u0915\u0940 \u092e\u0942\u0932 \u092c\u093e\u0924\u0947\u0902", enText: "Learn operating systems, networking and internet fundamentals.", hiText: "Operating systems, networking \u0914\u0930 internet fundamentals \u0938\u0940\u0916\u0947\u0902\u0964", enSkills: "Skills: OS + Networking", hiSkills: "\u0915\u094c\u0936\u0932: OS + Networking" }, { enTitle: "Step 2: Security Basics", hiTitle: "\u091a\u0930\u0923 2: \u0938\u093f\u0915\u094d\u092f\u094b\u0930\u093f\u091f\u0940 \u0915\u0940 \u092e\u0942\u0932 \u092c\u093e\u0924\u0947\u0902", enText: "Understand authentication, encryption and security concepts.", hiText: "Authentication, encryption \u0914\u0930 security concepts \u0938\u092e\u091d\u0947\u0902\u0964", enSkills: "Skills: Cyber Security Fundamentals", hiSkills: "\u0915\u094c\u0936\u0932: Cyber Security Fundamentals" } ] }; function renderStaticText() { const language = getSelectedLanguage(); const t = localText[language]; document.getElementById( "pageTitle" ).textContent = t.title; document.getElementById( "pageDescription" ).textContent = t.description; careerGoalLabel.textContent = t.careerGoal; educationLevelLabel.textContent = t.educationLevel; careerPlaceholder.textContent = t.selectCareer; educationPlaceholder.textContent = t.selectEducation; generateBtn.textContent = t.generate; document.getElementById( "roadmapTitle" ).textContent = t.roadmap; } function renderRoadmap() { if (!selectedCareer) { return; } const language = getSelectedLanguage(); const steps = roadmaps[selectedCareer] || []; roadmapSteps.innerHTML = ""; steps.forEach( function (step) { const card = document.createElement( "div" ); card.className = "step"; card.innerHTML = ` <h3> ${ language === "hi" ? step.hiTitle : step.enTitle } </h3> <p> ${ language === "hi" ? step.hiText : step.enText } </p> <div class="skills"> ${ language === "hi" ? step.hiSkills : step.enSkills } </div> `; roadmapSteps.appendChild( card ); } ); } generateBtn.addEventListener( "click", function () { if ( !careerGoal.value || !educationLevel.value ) { alert( localText[ getSelectedLanguage() ].error ); return; } selectedCareer = careerGoal.value; renderStaticText(); renderRoadmap(); roadmap.style.display = "block"; roadmap.scrollIntoView({ behavior: "smooth" }); } ); document.addEventListener( "languageChanged", function () { renderStaticText(); renderRoadmap(); } ); renderStaticText(); </script>
+
+</body> </html>

@@ -1,0 +1,23 @@
+@"
+# Environment variables
+.env
+.env.*
+
+# Dependencies
+node_modules/
+
+# MongoDB backups
+backup/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+"@ | Set-Content .gitignore

@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+
+<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ShikshaSetu-AI | Quiz</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: #2563eb;
+        color: white;
+        padding: 18px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #languageSelect {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 7px;
+        background: white;
+        color: #1f2937;
+        cursor: pointer;
+    }
+
+    .back-btn {
+        color: white;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 10px 16px;
+        border-radius: 8px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .quiz-header {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+    }
+
+    .quiz-header h1 {
+        margin-bottom: 10px;
+        font-size: 30px;
+    }
+
+    .quiz-header p {
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .question-card {
+        background: white;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    }
+
+    .question-number {
+        color: #2563eb;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .question-text {
+        font-size: 19px;
+        font-weight: 600;
+        margin-bottom: 18px;
+    }
+
+    .option {
+        display: block;
+        border: 1px solid #d1d5db;
+        padding: 14px;
+        margin: 10px 0;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .option:hover {
+        background: #eff6ff;
+        border-color: #2563eb;
+    }
+
+    .option input {
+        margin-right: 10px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 16px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background: #1d4ed8;
+    }
+
+    .result {
+        display: none;
+        background: white;
+        margin-top: 25px;
+        padding: 30px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .result h2 {
+        margin-bottom: 10px;
+    }
+
+    .score {
+        font-size: 34px;
+        font-weight: bold;
+        color: #2563eb;
+        margin: 10px 0;
+    }
+
+    .loading,
+    .error {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .error {
+        color: #dc2626;
+    }
+
+    @media (max-width: 600px) {
+
+        .navbar {
+            padding: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 20px;
+        }
+
+        .nav-right {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .quiz-header h1 {
+            font-size: 25px;
+        }
+
+        .question-text {
+            font-size: 17px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+    ShikshaSetu-AI
+</div>
+
+<div class="nav-right">
+
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+    </select>
+
+    <a
+        href="dashboard.html"
+        class="back-btn"
+    >
+        Back to Dashboard
+    </a>
+
+</div>
+
+</nav>
+
+<div class="container">
+
+<div
+    id="loading"
+    class="loading"
+>
+    Loading quiz...
+</div>
+
+<div
+    id="error"
+    class="error"
+    style="display:none;"
+></div>
+
+<div
+    id="quizContent"
+    style="display:none;"
+>
+
+    <div class="quiz-header">
+
+        <h1 id="quizTitle">
+            Quizzes
+        </h1>
+
+        <p id="quizDescription">
+            Select one correct answer for each question.
+        </p>
+
+    </div>
+
+    <form id="quizForm">
+
+        <div id="questionsContainer"></div>
+
+        <button
+            type="submit"
+            class="submit-btn"
+            id="submitQuizBtn"
+        >
+            Submit Quiz
+        </button>
+
+    </form>
+
+    <div
+        id="result"
+        class="result"
+    >
+
+        <h2 id="resultTitle">
+            Quiz Completed
+        </h2>
+
+        <p id="scoreLabel">
+            Your Score
+        </p>
+
+        <div
+            id="score"
+            class="score"
+        >
+            0 / 0
+        </div>
+
+        <p id="percentage"></p>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="js/language.js"></script>
+
+<script> const API_URL = "http://localhost:5000/api"; const loading = document.getElementById("loading"); const errorBox = document.getElementById("error"); const quizContent = document.getElementById( "quizContent" ); const questionsContainer = document.getElementById( "questionsContainer" ); const quizForm = document.getElementById( "quizForm" ); const result = document.getElementById( "result" ); const scoreElement = document.getElementById( "score" ); const percentageElement = document.getElementById( "percentage" ); let currentQuiz = null; const quizText = { en: { title: "Quizzes", description: "Select one correct answer for each question.", submit: "Submit Quiz", completed: "Quiz Completed", score: "Your Score", question: "Question", loading: "Loading quiz..." }, hi: { title: "\u0915\u094d\u0935\u093f\u091c\u093c", description: "\u0939\u0930 \u092a\u094d\u0930\u0936\u094d\u0928 \u0915\u0947 \u0932\u093f\u090f \u090f\u0915 \u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930 \u091a\u0941\u0928\u0947\u0902\u0964", submit: "\u0915\u094d\u0935\u093f\u091c\u093c \u091c\u092e\u093e \u0915\u0930\u0947\u0902", completed: "\u0915\u094d\u0935\u093f\u091c\u093c \u092a\u0942\u0930\u093e \u0939\u0941\u0906", score: "\u0906\u092a\u0915\u093e \u0938\u094d\u0915\u094b\u0930", question: "\u092a\u094d\u0930\u0936\u094d\u0928", loading: "\u0915\u094d\u0935\u093f\u091c\u093c \u0932\u094b\u0921 \u0939\u094b \u0930\u0939\u093e \u0939\u0948..." } }; function applyQuizLanguage() { const language = getSelectedLanguage(); const t = quizText[language]; document.getElementById( "quizTitle" ).textContent = t.title; document.getElementById( "quizDescription" ).textContent = t.description; document.getElementById( "submitQuizBtn" ).textContent = t.submit; document.getElementById( "resultTitle" ).textContent = t.completed; document.getElementById( "scoreLabel" ).textContent = t.score; document.getElementById( "loading" ).textContent = t.loading; if (currentQuiz) { renderQuiz(currentQuiz); } } async function loadQuiz() { try { const response = await fetch( `${API_URL}/quizzes` ); const data = await response.json(); if ( !response.ok || !data.success ) { throw new Error( data.message || "Quiz load nahi ho paaya." ); } if ( !data.quizzes || data.quizzes.length === 0 ) { throw new Error( "No quiz available." ); } currentQuiz = data.quizzes[0]; loading.style.display = "none"; quizContent.style.display = "block"; renderQuiz(currentQuiz); } catch (error) { console.error( "Quiz load error:", error ); loading.style.display = "none"; errorBox.style.display = "block"; errorBox.textContent = error.message; } } function renderQuiz(quiz) { const language = getSelectedLanguage(); const questionLabel = quizText[language] .question; questionsContainer.innerHTML = ""; quiz.questions.forEach( function (item, index) { const card = document.createElement( "div" ); card.className = "question-card"; let optionsHTML = ""; item.options.forEach( function ( option, optionIndex ) { optionsHTML += ` <label class="option"> <input type="radio" name="question-${index}" value="${optionIndex}" > ${escapeHtml(option)} </label> `; } ); card.innerHTML = ` <div class="question-number"> ${questionLabel} ${index + 1} </div> <div class="question-text"> ${escapeHtml(item.question)} </div> ${optionsHTML} `; questionsContainer.appendChild( card ); } ); } quizForm.addEventListener( "submit", function (event) { event.preventDefault(); if (!currentQuiz) { return; } let score = 0; currentQuiz.questions.forEach( function (item, index) { const selected = document.querySelector( `input[name="question-${index}"]:checked` ); if ( selected && Number( selected.value ) === Number( item.correctAnswer ) ) { score++; } } ); const total = currentQuiz.questions.length; const percentage = total > 0 ? Math.round( (score / total) * 100 ) : 0; scoreElement.textContent = `${score} / ${total}`; percentageElement.textContent = `${percentage}%`; result.style.display = "block"; result.scrollIntoView({ behavior: "smooth" }); } ); function escapeHtml(value) { return String(value) .replace( /&/g, "&amp;" ) .replace( /</g, "&lt;" ) .replace( />/g, "&gt;" ) .replace( /"/g, "&quot;" ) .replace( /'/g, "&#039;" ); } document.addEventListener( "languageChanged", function () { applyQuizLanguage(); } ); applyQuizLanguage(); loadQuiz(); </script>
+
+</body> </html>

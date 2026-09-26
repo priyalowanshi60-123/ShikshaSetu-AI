@@ -1,0 +1,1417 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ShikshaSetu-AI | Courses
+    </title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background:
+                #f4f7fb;
+
+            color:
+                #1f2937;
+
+            min-height:
+                100vh;
+        }
+
+        .navbar {
+
+            background:
+                #2563eb;
+
+            color:
+                white;
+
+            padding:
+                18px 30px;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+        }
+
+        .logo {
+
+            font-size:
+                24px;
+
+            font-weight:
+                bold;
+        }
+
+        .nav-right {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+        }
+
+        #languageSelect {
+
+            padding:
+                8px 10px;
+
+            border:
+                none;
+
+            border-radius:
+                7px;
+
+            background:
+                white;
+
+            color:
+                #1f2937;
+
+            cursor:
+                pointer;
+        }
+
+        .back-btn {
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.15
+                );
+
+            padding:
+                10px 16px;
+
+            border-radius:
+                8px;
+        }
+
+        .container {
+
+            max-width:
+                1050px;
+
+            margin:
+                40px auto;
+
+            padding:
+                0 20px;
+        }
+
+        .hero {
+
+            background:
+                white;
+
+            border-radius:
+                16px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.08
+                );
+
+            padding:
+                30px;
+
+            margin-bottom:
+                25px;
+        }
+
+        .hero h1 {
+
+            font-size:
+                30px;
+
+            margin-bottom:
+                10px;
+        }
+
+        .hero p {
+
+            color:
+                #6b7280;
+
+            line-height:
+                1.6;
+        }
+
+        .loading,
+        .empty,
+        .error {
+
+            background:
+                white;
+
+            padding:
+                25px;
+
+            border-radius:
+                12px;
+
+            text-align:
+                center;
+        }
+
+        .error {
+
+            color:
+                #dc2626;
+        }
+
+        .course-card {
+
+            background:
+                white;
+
+            border-radius:
+                16px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.08
+                );
+
+            padding:
+                28px;
+
+            margin-bottom:
+                25px;
+        }
+
+        .course-title {
+
+            font-size:
+                25px;
+
+            margin-bottom:
+                8px;
+        }
+
+        .course-description {
+
+            color:
+                #6b7280;
+
+            line-height:
+                1.6;
+
+            margin-bottom:
+                15px;
+        }
+
+        .course-meta {
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+            flex-wrap:
+                wrap;
+
+            margin-bottom:
+                22px;
+        }
+
+        .meta {
+
+            background:
+                #eff6ff;
+
+            color:
+                #1d4ed8;
+
+            padding:
+                7px 11px;
+
+            border-radius:
+                20px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+        }
+
+        .course-progress {
+
+            margin-bottom:
+                22px;
+        }
+
+        .progress-top {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                8px;
+
+            font-weight:
+                bold;
+        }
+
+        .progress-bar {
+
+            width:
+                100%;
+
+            height:
+                10px;
+
+            background:
+                #e5e7eb;
+
+            border-radius:
+                20px;
+
+            overflow:
+                hidden;
+        }
+
+        .progress-fill {
+
+            height:
+                100%;
+
+            width:
+                0;
+
+            background:
+                #2563eb;
+
+            border-radius:
+                20px;
+
+            transition:
+                width 0.3s ease;
+        }
+
+        .lessons-title {
+
+            margin-bottom:
+                15px;
+        }
+
+        .lesson-card {
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius:
+                12px;
+
+            padding:
+                18px;
+
+            margin-bottom:
+                12px;
+        }
+
+        .lesson-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap:
+                15px;
+        }
+
+        .lesson-number {
+
+            color:
+                #2563eb;
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                5px;
+        }
+
+        .lesson-title {
+
+            font-size:
+                18px;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                8px;
+        }
+
+        .lesson-content {
+
+            color:
+                #6b7280;
+
+            line-height:
+                1.6;
+
+            margin-bottom:
+                8px;
+        }
+
+        .lesson-duration {
+
+            color:
+                #6b7280;
+
+            font-size:
+                13px;
+        }
+
+        .complete-btn {
+
+            white-space:
+                nowrap;
+
+            border:
+                none;
+
+            background:
+                #16a34a;
+
+            color:
+                white;
+
+            padding:
+                10px 14px;
+
+            border-radius:
+                8px;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+        }
+
+        .complete-btn:hover {
+
+            background:
+                #15803d;
+        }
+
+        .complete-btn.completed {
+
+            background:
+                #6b7280;
+
+            cursor:
+                default;
+        }
+
+        @media (
+            max-width: 700px
+        ) {
+
+            .navbar {
+
+                padding:
+                    15px;
+
+                flex-wrap:
+                    wrap;
+            }
+
+            .lesson-header {
+
+                flex-direction:
+                    column;
+            }
+
+            .complete-btn {
+
+                width:
+                    100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        ShikshaSetu-AI
+    </div>
+
+    <div class="nav-right">
+
+        <select id="languageSelect">
+            <option value="en">
+                English
+            </option>
+
+            <option value="hi">
+                Hindi
+            </option>
+        </select>
+
+        <a
+            href="dashboard.html"
+            class="back-btn"
+        >
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <section class="hero">
+
+        <h1 id="pageTitle">
+            My Courses
+        </h1>
+
+        <p id="pageDescription">
+            Explore your courses, complete lessons and track your learning progress.
+        </p>
+
+    </section>
+
+    <div
+        id="coursesContainer"
+        class="loading"
+    >
+        Loading courses...
+    </div>
+
+</main>
+
+<script src="js/language.js"></script>
+
+<script>
+
+const API_URL =
+    "http://localhost:5000/api";
+
+const token =
+    localStorage.getItem(
+        "shikshaToken"
+    );
+
+const coursesContainer =
+    document.getElementById(
+        "coursesContainer"
+    );
+
+if (!token) {
+
+    window.location.href =
+        "login.html";
+}
+
+
+// =====================================
+// PAGE TEXT
+// =====================================
+
+const pageText = {
+
+    en: {
+
+        title:
+            "My Courses",
+
+        description:
+            "Explore your courses, complete lessons and track your learning progress.",
+
+        loading:
+            "Loading courses...",
+
+        noCourses:
+            "No courses available.",
+
+        lessons:
+            "Lessons",
+
+        progress:
+            "Your Progress",
+
+        complete:
+            "Complete Lesson",
+
+        completed:
+            "Completed",
+
+        completedLessons:
+            "Completed lessons",
+
+        back:
+            "Back to Dashboard"
+    },
+
+    hi: {
+
+        title:
+            "\u092e\u0947\u0930\u0947 \u0915\u094b\u0930\u094d\u0938",
+
+        description:
+            "\u0905\u092a\u0928\u0947 \u0915\u094b\u0930\u094d\u0938 \u0926\u0947\u0916\u0947\u0902, \u092a\u093e\u0920 \u092a\u0942\u0930\u0947 \u0915\u0930\u0947\u0902 \u0914\u0930 \u0905\u092a\u0928\u0940 \u092a\u094d\u0930\u0917\u0924\u093f \u091f\u094d\u0930\u0948\u0915 \u0915\u0930\u0947\u0902\u0964",
+
+        loading:
+            "\u0915\u094b\u0930\u094d\u0938 \u0932\u094b\u0921 \u0939\u094b \u0930\u0939\u0947 \u0939\u0948\u0902...",
+
+        noCourses:
+            "\u0905\u092d\u0940 \u0915\u094b\u0908 \u0915\u094b\u0930\u094d\u0938 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902 \u0939\u0948\u0964",
+
+        lessons:
+            "\u092a\u093e\u0920",
+
+        progress:
+            "\u0906\u092a\u0915\u0940 \u092a\u094d\u0930\u0917\u0924\u093f",
+
+        complete:
+            "\u092a\u093e\u0920 \u092a\u0942\u0930\u093e \u0915\u0930\u0947\u0902",
+
+        completed:
+            "\u092a\u0942\u0930\u093e \u0939\u0941\u0906",
+
+        completedLessons:
+            "\u092a\u0942\u0930\u0947 \u0915\u093f\u090f \u0917\u090f \u092a\u093e\u0920",
+
+        back:
+            "\u0921\u0948\u0936\u092c\u094b\u0930\u094d\u0921 \u092a\u0930 \u0935\u093e\u092a\u0938"
+    }
+};
+
+
+// =====================================
+// LANGUAGE
+// =====================================
+
+function language() {
+
+    return getSelectedLanguage() === "hi"
+        ? "hi"
+        : "en";
+}
+
+function t() {
+
+    return pageText[
+        language()
+    ];
+}
+
+
+// =====================================
+// LOCALIZED COURSE DATA
+// =====================================
+
+function courseTitle(course) {
+
+    if (language() === "hi") {
+
+        return (
+            course.titleHi ||
+            course.title ||
+            "Course"
+        );
+    }
+
+    return (
+        course.titleEn ||
+        course.title ||
+        "Course"
+    );
+}
+
+
+function courseDescription(course) {
+
+    if (language() === "hi") {
+
+        return (
+            course.descriptionHi ||
+            course.description ||
+            ""
+        );
+    }
+
+    return (
+        course.descriptionEn ||
+        course.description ||
+        ""
+    );
+}
+
+
+function lessonTitle(lesson) {
+
+    if (language() === "hi") {
+
+        return (
+            lesson.titleHi ||
+            lesson.title
+        );
+    }
+
+    return (
+        lesson.titleEn ||
+        lesson.title
+    );
+}
+
+
+function lessonContent(lesson) {
+
+    if (language() === "hi") {
+
+        return (
+            lesson.contentHi ||
+            lesson.content
+        );
+    }
+
+    return (
+        lesson.contentEn ||
+        lesson.content
+    );
+}
+
+
+// =====================================
+// APPLY PAGE LANGUAGE
+// =====================================
+
+function applyPageLanguage() {
+
+    const current =
+        t();
+
+    document.getElementById(
+        "pageTitle"
+    ).textContent =
+        current.title;
+
+    document.getElementById(
+        "pageDescription"
+    ).textContent =
+        current.description;
+
+    document.querySelector(
+        ".back-btn"
+    ).textContent =
+        current.back;
+
+    document.documentElement.lang =
+        language();
+}
+
+
+// =====================================
+// LOAD COURSES
+// =====================================
+
+async function loadCourses() {
+
+    coursesContainer.className =
+        "loading";
+
+    coursesContainer.textContent =
+        t().loading;
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/courses`
+            );
+
+        const data =
+            await response.json();
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Courses load failed."
+            );
+        }
+
+        if (
+            !data.courses ||
+            data.courses.length === 0
+        ) {
+
+            coursesContainer.className =
+                "empty";
+
+            coursesContainer.textContent =
+                t().noCourses;
+
+            return;
+        }
+
+        coursesContainer.className =
+            "";
+
+        coursesContainer.innerHTML =
+            "";
+
+        for (
+            const course of data.courses
+        ) {
+
+            await renderCourse(
+                course
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Courses error:",
+            error
+        );
+
+        coursesContainer.className =
+            "error";
+
+        coursesContainer.textContent =
+            error.message;
+    }
+}
+
+
+// =====================================
+// RENDER COURSE
+// =====================================
+
+async function renderCourse(
+    course
+) {
+
+    const card =
+        document.createElement(
+            "section"
+        );
+
+    card.className =
+        "course-card";
+
+    card.innerHTML = `
+
+        <h2 class="course-title">
+            ${escapeHtml(
+                courseTitle(course)
+            )}
+        </h2>
+
+        <p class="course-description">
+            ${escapeHtml(
+                courseDescription(course)
+            )}
+        </p>
+
+        <div class="course-meta">
+
+            <span class="meta">
+                ${escapeHtml(
+                    course.level ||
+                    "Beginner"
+                )}
+            </span>
+
+            <span class="meta">
+                ${escapeHtml(
+                    course.lessons ||
+                    0
+                )}
+                ${t().lessons}
+            </span>
+
+            ${
+                course.duration
+                    ? `
+                    <span class="meta">
+                        ${escapeHtml(
+                            course.duration
+                        )}
+                    </span>
+                    `
+                    : ""
+            }
+
+        </div>
+
+        <div class="course-progress">
+
+            <div class="progress-top">
+
+                <span>
+                    ${t().progress}
+                </span>
+
+                <span
+                    id="percentage-${course._id}"
+                >
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    id="progress-${course._id}"
+                    class="progress-fill"
+                ></div>
+
+            </div>
+
+        </div>
+
+        <h3 class="lessons-title">
+            ${t().lessons}
+        </h3>
+
+        <div
+            id="lessons-${course._id}"
+        >
+            ${t().loading}
+        </div>
+    `;
+
+    coursesContainer.appendChild(
+        card
+    );
+
+    await loadCourseData(
+        course
+    );
+}
+
+
+// =====================================
+// COURSE DATA
+// =====================================
+
+async function loadCourseData(
+    course
+) {
+
+    const lessonsContainer =
+        document.getElementById(
+            `lessons-${course._id}`
+        );
+
+    try {
+
+        const [
+            lessonsResponse,
+            progressResponse
+        ] = await Promise.all([
+
+            fetch(
+                `${API_URL}/lessons/course/${course._id}`
+            ),
+
+            fetch(
+                `${API_URL}/progress/${course._id}`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            )
+        ]);
+
+        const lessonsData =
+            await lessonsResponse.json();
+
+        const progressData =
+            await progressResponse.json();
+
+        if (
+            !lessonsResponse.ok ||
+            !lessonsData.success
+        ) {
+
+            throw new Error(
+                lessonsData.message ||
+                "Lessons load failed."
+            );
+        }
+
+        if (
+            !progressResponse.ok ||
+            !progressData.success
+        ) {
+
+            throw new Error(
+                progressData.message ||
+                "Progress load failed."
+            );
+        }
+
+        const lessons =
+            lessonsData.lessons || [];
+
+        const progress =
+            progressData.progress || null;
+
+        const completedLessons =
+            progress &&
+            Array.isArray(
+                progress.completedLessons
+            )
+                ? progress.completedLessons.map(
+                    function (id) {
+                        return id.toString();
+                    }
+                )
+                : [];
+
+        const percentage =
+            progress
+                ? Number(
+                    progress.progressPercentage
+                ) || 0
+                : 0;
+
+        updateProgress(
+            course._id,
+            percentage
+        );
+
+        renderLessons(
+            course,
+            lessons,
+            completedLessons,
+            lessonsContainer
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Course data error:",
+            error
+        );
+
+        lessonsContainer.className =
+            "error";
+
+        lessonsContainer.textContent =
+            error.message;
+    }
+}
+
+
+// =====================================
+// LESSONS
+// =====================================
+
+function renderLessons(
+    course,
+    lessons,
+    completedLessons,
+    container
+) {
+
+    if (lessons.length === 0) {
+
+        container.textContent =
+            "No lessons available.";
+
+        return;
+    }
+
+    container.innerHTML =
+        "";
+
+    lessons.forEach(
+        function (
+            lesson,
+            index
+        ) {
+
+            const completed =
+                completedLessons.includes(
+                    lesson._id.toString()
+                );
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "lesson-card";
+
+            card.innerHTML = `
+
+                <div class="lesson-header">
+
+                    <div>
+
+                        <div class="lesson-number">
+                            Lesson ${index + 1}
+                        </div>
+
+                        <div class="lesson-title">
+                            ${escapeHtml(
+                                lessonTitle(
+                                    lesson
+                                )
+                            )}
+                        </div>
+
+                        <div class="lesson-content">
+                            ${escapeHtml(
+                                lessonContent(
+                                    lesson
+                                )
+                            )}
+                        </div>
+
+                        ${
+                            lesson.duration
+                                ? `
+                                <div class="lesson-duration">
+                                    ${escapeHtml(
+                                        lesson.duration
+                                    )}
+                                </div>
+                                `
+                                : ""
+                        }
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="complete-btn ${
+                            completed
+                                ? "completed"
+                                : ""
+                        }"
+                        ${completed
+                            ? "disabled"
+                            : ""}
+                    >
+                        ${
+                            completed
+                                ? t().completed
+                                : t().complete
+                        }
+                    </button>
+
+                </div>
+            `;
+
+            const button =
+                card.querySelector(
+                    ".complete-btn"
+                );
+
+            if (!completed) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        completeLesson(
+                            course,
+                            lesson,
+                            button
+                        );
+                    }
+                );
+            }
+
+            container.appendChild(
+                card
+            );
+        }
+    );
+}
+
+
+// =====================================
+// COMPLETE LESSON
+// =====================================
+
+async function completeLesson(
+    course,
+    lesson,
+    button
+) {
+
+    button.disabled =
+        true;
+
+    button.textContent =
+        "Saving...";
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/progress/complete-lesson`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        Authorization:
+                            `Bearer ${token}`
+                    },
+
+                    body: JSON.stringify({
+                        courseId:
+                            course._id,
+
+                        lessonId:
+                            lesson._id
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            localStorage.removeItem(
+                "shikshaToken"
+            );
+
+            localStorage.removeItem(
+                "shikshaUser"
+            );
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Lesson completion failed."
+            );
+        }
+
+        const percentage =
+            Number(
+                data.progress
+                    ?.progressPercentage
+            ) || 0;
+
+        updateProgress(
+            course._id,
+            percentage
+        );
+
+        button.textContent =
+            t().completed;
+
+        button.classList.add(
+            "completed"
+        );
+
+        button.disabled =
+            true;
+
+    } catch (error) {
+
+        console.error(
+            "Complete lesson error:",
+            error
+        );
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            t().complete;
+
+        alert(
+            error.message
+        );
+    }
+}
+
+
+// =====================================
+// PROGRESS
+// =====================================
+
+function updateProgress(
+    courseId,
+    percentage
+) {
+
+    const percentageElement =
+        document.getElementById(
+            `percentage-${courseId}`
+        );
+
+    const progressElement =
+        document.getElementById(
+            `progress-${courseId}`
+        );
+
+    if (percentageElement) {
+
+        percentageElement.textContent =
+            `${percentage}%`;
+    }
+
+    if (progressElement) {
+
+        progressElement.style.width =
+            `${percentage}%`;
+    }
+}
+
+
+// =====================================
+// SAFE HTML
+// =====================================
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+// =====================================
+// LANGUAGE CHANGE
+// =====================================
+
+document.addEventListener(
+    "languageChanged",
+    function () {
+
+        applyPageLanguage();
+
+        loadCourses();
+    }
+);
+
+
+// =====================================
+// START
+// =====================================
+
+applyPageLanguage();
+
+loadCourses();
+
+</script>
+
+</body>
+</html>
