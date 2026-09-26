@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+```
 <title>ShikshaSetu-AI | Dashboard</title>
 
 <style>
@@ -290,6 +291,7 @@
         }
     }
 </style>
+```
 
 </head>
 
@@ -297,247 +299,233 @@
 
 <nav class="navbar">
 
-    <div class="logo">
-        ShikshaSetu-AI
-    </div>
+```
+<div class="logo">
+    ShikshaSetu-AI
+</div>
 
-    <div class="nav-right">
+<div class="nav-right">
 
-        <span
-            id="userName"
-            class="user-name"
-        >
-            Student
-        </span>
+    <span id="userName" class="user-name">
+        Student
+    </span>
 
-        <select id="languageSelect">
-            <option value="en">English</option>
-            <option value="hi">&#x0939;&#x093F;&#x0902;&#x0926;&#x0940;</option>
-        </select>
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="hi">&#x0939;&#x093F;&#x0902;&#x0926;&#x0940;</option>
+    </select>
 
-        <button
-            id="logoutBtn"
-            class="logout-btn"
-            data-i18n="logout"
-        >
-            Logout
-        </button>
+    <button
+        id="logoutBtn"
+        class="logout-btn"
+        data-i18n="logout"
+    >
+        Logout
+    </button>
 
-    </div>
+</div>
+```
 
 </nav>
 
 <main class="container">
 
-    <section class="welcome">
+```
+<section class="welcome">
 
-        <h1>
-            <span data-i18n="welcome">
-                Welcome
-            </span>,
-            <span id="welcomeName">
-                Student
-            </span>!
-        </h1>
+    <h1>
+        <span data-i18n="welcome">
+            Welcome
+        </span>,
+        <span id="welcomeName">
+            Student
+        </span>!
+    </h1>
 
-        <p>
-            Learn, practice and build your future with ShikshaSetu-AI.
-        </p>
+    <p>
+        Learn, practice and build your future with ShikshaSetu-AI.
+    </p>
 
-    </section>
+</section>
 
-    <section class="stats">
+<section class="stats">
 
-        <div class="stat-card">
+    <div class="stat-card">
 
-            <h3 data-i18n="coursesTracked">
-                Courses Tracked
-            </h3>
+        <h3 data-i18n="coursesTracked">
+            Courses Tracked
+        </h3>
 
-            <div
-                id="courseCount"
-                class="stat-value"
-            >
-                0
-            </div>
-
+        <div id="courseCount" class="stat-value">
+            0
         </div>
 
-        <div class="stat-card">
+    </div>
 
-            <h3 data-i18n="lessonsCompleted">
-                Lessons Completed
-            </h3>
+    <div class="stat-card">
 
-            <div
-                id="lessonCount"
-                class="stat-value"
-            >
-                0
-            </div>
+        <h3 data-i18n="lessonsCompleted">
+            Lessons Completed
+        </h3>
 
+        <div id="lessonCount" class="stat-value">
+            0
         </div>
 
-        <div class="stat-card">
+    </div>
 
-            <h3 data-i18n="averageProgress">
-                Average Progress
-            </h3>
+    <div class="stat-card">
 
-            <div
-                id="averageProgress"
-                class="stat-value"
-            >
-                0%
-            </div>
+        <h3 data-i18n="averageProgress">
+            Average Progress
+        </h3>
 
+        <div id="averageProgress" class="stat-value">
+            0%
         </div>
 
-    </section>
+    </div>
 
-    <section
-        class="section"
-        id="learningProgress"
-    >
+</section>
 
-        <h2 data-i18n="learningProgress">
-            Your Learning Progress
+<section class="section" id="learningProgress">
+
+    <h2 data-i18n="learningProgress">
+        Your Learning Progress
+    </h2>
+
+    <div id="progressContainer" class="loading">
+        Loading progress...
+    </div>
+
+</section>
+
+<section class="cards">
+
+    <div class="card">
+
+        <h2 data-i18n="aiAssistant">
+            AI Assistant
         </h2>
 
-        <div
-            id="progressContainer"
-            class="loading"
+        <p>
+            Ask your study doubts and get simple,
+            student-friendly AI explanations.
+        </p>
+
+        <a
+            href="ai-assistant.html"
+            class="card-btn"
+            data-i18n="openAI"
         >
-            Loading progress...
-        </div>
+            Open AI Assistant
+        </a>
 
-    </section>
+    </div>
 
-    <section class="cards">
+    <div class="card">
 
-        <div class="card">
+        <h2 data-i18n="myCourses">
+            My Courses
+        </h2>
 
-            <h2 data-i18n="aiAssistant">
-                AI Assistant
-            </h2>
+        <p>
+            Explore courses and lessons and learn at your own pace.
+        </p>
 
-            <p>
-                Ask your study doubts and get simple,
-                student-friendly AI explanations.
-            </p>
+        <a
+            href="courses.html"
+            class="card-btn"
+            data-i18n="viewCourses"
+        >
+            View Courses
+        </a>
 
-            <a
-                href="ai-assistant.html"
-                class="card-btn"
-                data-i18n="openAI"
-            >
-                Open AI Assistant
-            </a>
+    </div>
 
-        </div>
+    <div class="card">
 
-        <div class="card">
+        <h2 data-i18n="myProgress">
+            My Progress
+        </h2>
 
-            <h2 data-i18n="myCourses">
-                My Courses
-            </h2>
+        <p>
+            Track your completed lessons and learning progress.
+        </p>
 
-            <p>
-                Explore courses and lessons and learn at your own pace.
-            </p>
+        <button
+            type="button"
+            class="card-btn"
+            onclick="goToProgress()"
+            data-i18n="viewProgress"
+        >
+            View Progress
+        </button>
 
-            <a
-                href="courses.html"
-                class="card-btn"
-                data-i18n="viewCourses"
-            >
-                View Courses
-            </a>
+    </div>
 
-        </div>
+    <div class="card">
 
-        <div class="card">
+        <h2 data-i18n="careerRoadmap">
+            Career Roadmap
+        </h2>
 
-            <h2 data-i18n="myProgress">
-                My Progress
-            </h2>
+        <p>
+            Discover learning paths and career opportunities.
+        </p>
 
-            <p>
-                Track your completed lessons and learning progress.
-            </p>
+        <a
+            href="career.html"
+            class="card-btn"
+            data-i18n="openRoadmap"
+        >
+            Open Roadmap
+        </a>
 
-            <button
-                type="button"
-                class="card-btn"
-                onclick="goToProgress()"
-                data-i18n="viewProgress"
-            >
-                View Progress
-            </button>
+    </div>
 
-        </div>
+    <div class="card">
 
-        <div class="card">
+        <h2 data-i18n="scholarships">
+            Scholarships
+        </h2>
 
-            <h2 data-i18n="careerRoadmap">
-                Career Roadmap
-            </h2>
+        <p>
+            Find scholarship opportunities for higher education.
+        </p>
 
-            <p>
-                Discover learning paths and career opportunities.
-            </p>
+        <a
+            href="scholarships.html"
+            class="card-btn"
+            data-i18n="findScholarships"
+        >
+            Find Scholarships
+        </a>
 
-            <a
-                href="career.html"
-                class="card-btn"
-                data-i18n="openRoadmap"
-            >
-                Open Roadmap
-            </a>
+    </div>
 
-        </div>
+    <div class="card">
 
-        <div class="card">
+        <h2 data-i18n="quizzes">
+            Quizzes
+        </h2>
 
-            <h2 data-i18n="scholarships">
-                Scholarships
-            </h2>
+        <p>
+            Test your knowledge with interactive quizzes.
+        </p>
 
-            <p>
-                Find scholarship opportunities for higher education.
-            </p>
+        <a
+            href="quiz.html"
+            class="card-btn"
+            data-i18n="startQuiz"
+        >
+            Start Quiz
+        </a>
 
-            <a
-                href="scholarships.html"
-                class="card-btn"
-                data-i18n="findScholarships"
-            >
-                Find Scholarships
-            </a>
+    </div>
 
-        </div>
-
-        <div class="card">
-
-            <h2 data-i18n="quizzes">
-                Quizzes
-            </h2>
-
-            <p>
-                Test your knowledge with interactive quizzes.
-            </p>
-
-            <a
-                href="quiz.html"
-                class="card-btn"
-                data-i18n="startQuiz"
-            >
-                Start Quiz
-            </a>
-
-        </div>
-
-    </section>
+</section>
+```
 
 </main>
 
@@ -549,8 +537,12 @@
 
 <script>
 
-    const API_URL =
-        "http://localhost:5000/api";
+    /*
+     * IMPORTANT:
+     * Relative API URL is used so the app works both locally
+     * and on Render.
+     */
+    const API_URL = "/api";
 
     const token =
         localStorage.getItem(
@@ -563,6 +555,7 @@
         );
 
     if (!token || !userData) {
+
         window.location.href =
             "login.html";
     }
@@ -755,10 +748,12 @@
                         </div>
 
                         <div class="progress-bar">
+
                             <div
                                 class="progress-fill"
                                 style="width:${percentage}%"
                             ></div>
+
                         </div>
 
                         <div class="completed-info">
@@ -890,4 +885,3 @@
 
 </body>
 </html>
-
