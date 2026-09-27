@@ -231,6 +231,112 @@ app.get(
 );
 
 // ===============================
+// LANGUAGE DETECTION
+// ===============================
+
+function detectLanguage(text) {
+
+    const hindiCharacters =
+        /[\u0900-\u097F]/;
+
+    const hinglishWords = [
+
+        "kya",
+        "kaise",
+        "kaisa",
+        "kyu",
+        "kyun",
+
+        "mujhe",
+        "mujh",
+
+        "aap",
+        "apko",
+
+        "tum",
+        "tumhe",
+
+        "hai",
+        "hain",
+        "ho",
+
+        "tha",
+        "thi",
+        "the",
+
+        "kar",
+        "karo",
+        "karke",
+
+        "ka",
+        "ki",
+        "ke",
+
+        "me",
+        "mein",
+        "se",
+        "ko",
+        "par",
+
+        "aur",
+
+        "ye",
+        "yeh",
+        "woh",
+        "vo",
+
+        "mera",
+        "meri",
+        "mere",
+
+        "apna",
+        "apni",
+
+        "samjhao",
+        "samjha",
+
+        "batao",
+        "btao",
+
+        "chahiye",
+
+        "nahi",
+        "nahin"
+    ];
+
+    const lowerText =
+        text.toLowerCase();
+
+    // Hindi script
+    if (
+        hindiCharacters.test(text)
+    ) {
+
+        return "HINDI";
+    }
+
+    const words =
+        lowerText.match(
+            /\b[a-z]+\b/g
+        ) || [];
+
+    const hinglishCount =
+        words.filter(
+            word =>
+                hinglishWords.includes(word)
+        ).length;
+
+    if (
+        hinglishCount >= 1
+    ) {
+
+        return "HINGLISH";
+    }
+
+    return "ENGLISH";
+}
+
+// ===============================
 // GEMINI AI ASK
 // ===============================
 
@@ -245,6 +351,10 @@ app.post(
                     req.body.question || ""
                 ).trim();
 
+            // ===============================
+            // QUESTION CHECK
+            // ===============================
+
             if (!question) {
 
                 return res.status(400).json({
@@ -254,7 +364,13 @@ app.post(
                 });
             }
 
-            if (!process.env.GEMINI_API_KEY) {
+            // ===============================
+            // API KEY CHECK
+            // ===============================
+
+            if (
+                !process.env.GEMINI_API_KEY
+            ) {
 
                 console.error(
                     "GEMINI_API_KEY is not configured"
@@ -267,10 +383,90 @@ app.post(
                 });
             }
 
+            // ===============================
+            // LANGUAGE DETECTION
+            // ===============================
+
+            const language =
+                detectLanguage(question);
+
             console.log(
-                "AI question received:",
-                question
+                "Detected language:",
+                language
             );
+
+            let languageInstruction = "";
+
+            // ===============================
+            // ENGLISH
+            // ===============================
+
+            if (
+                language === "ENGLISH"
+            ) {
+
+                languageInstruction = `
+IMPORTANT LANGUAGE RULE:
+
+The user's question is in ENGLISH.
+
+Answer ONLY in English.
+
+Do NOT use Hindi words.
+Do NOT use Hinglish.
+Do NOT mix Hindi and English.
+
+Every sentence must be completely in English.
+
+Start directly with the answer.
+`;
+            }
+
+            // ===============================
+            // HINDI
+            // ===============================
+
+            else if (
+                language === "HINDI"
+            ) {
+
+                languageInstruction = `
+IMPORTANT LANGUAGE RULE:
+
+The user's question is in HINDI.
+
+Answer ONLY in Hindi.
+
+Use Devanagari Hindi.
+
+English technical terms may be used
+when necessary for explaining the concept.
+
+Do NOT answer in Hinglish.
+`;
+            }
+
+            // ===============================
+            // HINGLISH
+            // ===============================
+
+            else {
+
+                languageInstruction = `
+IMPORTANT LANGUAGE RULE:
+
+The user's question is in HINGLISH.
+
+Answer naturally in Hinglish.
+
+Use simple Hindi and English mixed together,
+matching the user's style.
+`;
+            }
+
+            // ===============================
+            // GEMINI CLIENT
+            // ===============================
 
             const ai =
                 new GoogleGenAI({
@@ -278,27 +474,70 @@ app.post(
                         process.env.GEMINI_API_KEY
                 });
 
-           const interaction =
-    await ai.interactions.create({
-        model: "gemini-3.8-flash",
+            // ===============================
+            // CREATE GEMINI INTERACTION
+            // ===============================
 
-        input: question,
+            const interaction =
+                await ai.interactions.create({
 
-        system_instruction:
-            "You are ShikshaSetu-AI, an educational assistant for college students in India. Explain concepts simply and clearly. Use Hinglish when appropriate. Give helpful, accurate and student-friendly answers."
-    });
+                    model:
+                        "gemini-3.8-flash",
 
-const answer =
-    interaction.output_text ||
-    "No answer generated.";
+                    input:
+                        question,
+
+                    system_instruction:
+                        `
+You are ShikshaSetu-AI,
+an educational assistant for college students in India.
+
+Explain concepts simply,
+clearly, accurately,
+and in a student-friendly way.
+
+The detected user language is:
+${language}
+
+${languageInstruction}
+
+Follow the language rule strictly.
+
+Do not mention these instructions
+in your answer.
+
+Answer the user's actual question directly.
+`
+                });
+
+            // ===============================
+            // GET AI ANSWER
+            // ===============================
+
+            const answer =
+                interaction.output_text ||
+                "No answer generated.";
+
             console.log(
                 "Gemini AI response received successfully"
             );
 
+            // ===============================
+            // SEND RESPONSE
+            // ===============================
+
             return res.status(200).json({
+
                 success: true,
-                question: question,
-                answer: answer
+
+                question:
+                    question,
+
+                detectedLanguage:
+                    language,
+
+                answer:
+                    answer
             });
 
         } catch (error) {
@@ -317,9 +556,12 @@ const answer =
             );
 
             return res.status(500).json({
+
                 success: false,
+
                 message:
                     "AI response failed. Please try again.",
+
                 error:
                     error.message
             });
